@@ -1,0 +1,34 @@
+{
+  "name": "cf-code-metrics",
+  "version": "0.0.1",
+  "description": "ColdFusion code metrics",
+  "main": "lib/index.js",
+  "scripts": {
+    "test": "./node_modules/.bin/mocha -u bdd"
+  },
+  "keywords": [
+    "cf",
+    "dependency-graph",
+    "code-metrics",
+    "static-analysis"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:ORC-RIS/cf-code-metrics.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ORC-RIS/cf-code-metrics/issues"
+  },
+  "homepage": "https://github.com/ORC-RIS/cf-code-metrics",
+  "author": "Ezequiel M Gioia",
+  "license": "MIT",
+  "dependencies": {
+    "bluebird": "^3.3.5",
+    "chai": "^3.5.0",
+    "chai-as-promised": "^5.3.0",
+    "decomment": "^0.8.6",
+    "mocha": "^2.4.5",
+    "recursive-readdir": "^2.0.0",
+    "xml2js": "^0.4.16"
+  }
+}
