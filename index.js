@@ -8,8 +8,10 @@ var analyzer = require("./lib/analyzer.js")
 var cytoscape = require("./lib/cytoscape-format.js")
 
 analyzer
-  .analyze('myPath')
-  .then(cytoscape.format)
-  .then(function(data){
-    console.log(data)
-  })
+  .analyze('./test/analyzer/data/subdirectories')
+  .then((result) => console.log(result))
+  .then(() => console.log('exit'))
+  //.then(cytoscape.format)
+  //.then(function(data){
+  //  console.log(data)
+  //})

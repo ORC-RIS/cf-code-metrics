@@ -15,7 +15,7 @@ describe('Analyzer', () => {
     })
 
     it('should return empty json when the are no files to analyze', () => {
-      var emptyResult = analyzer.newAnalysisObject()
+      var emptyResult = analyzer.newAnalysisResult()
       emptyResult.path = './test/analyzer/data/empty-dir'
       return expect(analyzer.analyze('./test/analyzer/data/empty-dir')).to.eventually.deep.equal(emptyResult);
     })
@@ -27,7 +27,10 @@ describe('Analyzer', () => {
     })
 
     it('should analyze subdirectories', () => {
-      return expect(analyzer.analyze('./test/analyzer/data/subdirectories')).to.eventually.equal(null)
+
+      return expect(analyzer.analyze('./test/analyzer/data/subdirectories')).to.eventually
+        .have.property('files')
+        .and.to.have.lengthOf(3)
     })
 
     it('should ignore any non cfml or cfc file', () => {
