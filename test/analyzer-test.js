@@ -42,7 +42,7 @@ describe('Analyzer', () => {
 
       return analyzer.analyze('./test/analyzer/data/cfml-comments')
         .then(result => {
-          console.log(result.files)
+          //console.log(result.files)
 
 /*
           expect(result.files)
@@ -68,6 +68,16 @@ describe('Analyzer', () => {
     })
 
     it('should find any <cfinclude /> relation', () => {
+
+      return analyzer.analyze('./test/analyzer/data/simple-cfinclude')
+        .then(result => {
+          //expect(result.files).should.all.contain.any.keys('includes')
+          //.should.contain.a.thing.with.property('', 'cat')
+          //expect(result.files[1].includes).to.equal('test/analyzer/data/simple-cfinclude');
+        })
+    })
+
+    it('should have relative paths as files', () => {
 
       return analyzer.analyze('./test/analyzer/data/simple-cfinclude')
         .then(result => {

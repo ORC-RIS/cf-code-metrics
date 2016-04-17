@@ -1,0 +1,20 @@
+{
+  "path": "test/analyzer/data/subdirectories",
+  "files": [
+    {
+      "file": "test/analyzer/data/subdirectories/file1.cfm",
+      "includes": [
+        "/dirA/file2.cfm"
+      ]
+    },
+    {
+      "file": "test/analyzer/data/subdirectories/dirA/file2.cfm",
+      "includes": []
+    },
+    {
+      "file": "test/analyzer/data/subdirectories/dirA/dirAA/file3.cfm",
+      "includes": []
+    }
+  ],
+  "metrics": {}
+}
