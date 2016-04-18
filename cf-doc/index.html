@@ -1,0 +1,1555 @@
+<!DOCTYPE html>
+<html class="gr__hexdocs_pm"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="ExDoc v0.11.2">
+    <title>Phoenix – Phoenix v1.1.4</title>
+    <link rel="stylesheet" href="assets/app-feafe9a25b.css">
+
+    <script src="assets/sidebar_items.js"></script>
+
+  </head>
+  <body data-type="modules">
+
+    <div class="main">
+<button class="sidebar-toggle">
+  <i class="icon-menu"></i>
+</button>
+<section class="sidebar">
+  <button class="sidebar-toggle">
+    <i class="icon-menu"></i>
+  </button>
+
+
+  <a href="https://hexdocs.pm/phoenix/Phoenix.html" class="sidebar-projectLink">
+    <div class="sidebar-projectDetails">
+      <h1 class="sidebar-projectName">
+        Paris
+      </h1>
+      <h2 class="sidebar-projectVersion">
+        v2.5.3
+      </h2>
+    </div>
+
+      <img src="assets/logo.png" alt="Phoenix" class="sidebar-projectImage">
+
+  </a>
+
+  <div class="sidebar-search">
+    <i class="icon-search"></i>
+    <input class="sidebar-searchInput" placeholder="search" autocomplete="off" type="text">
+  </div>
+
+  <ul class="sidebar-listNav">
+    <li><a id="extras-list" href="#full-list">Includes</a></li>
+    <li><a id="extras-list" href="#full-list">Datasources</a></li>
+    <li><a id="code-metrics" href="#full-list">Code Metrics</a></li>
+    <li><a id="extras-list" href="#full-list">Pages</a></li>
+
+
+      <li class="selected"><a id="modules-list" href="#full-list">Modules</a></li>
+
+
+
+      <li><a id="exceptions-list" href="#full-list">Exceptions</a></li>
+
+
+
+      <li><a id="protocols-list" href="#full-list">Protocols</a></li>
+
+  </ul>
+
+<!--
+  <ul id="full-list">
+    <li class="node collapsed">
+
+
+      <a href="https://hexdocs.pm/phoenix/Mix.Tasks.Compile.Phoenix.html" title="Mix.Tasks.Compile.Phoenix" class="object-link">Mix.Tasks.Compile.Phoenix</a>
+
+
+  </li>
+    <li class="node collapsed">
+
+
+      <a href="https://hexdocs.pm/phoenix/Mix.Tasks.Phoenix.Digest.html" title="Mix.Tasks.Phoenix.Digest" class="object-link">Mix.Tasks.Phoenix.Digest</a>
+
+
+    <ul>
+      <li class="docs">
+        <a href="#summary" class="doclink">Summary</a>
+      </li>
+        <li class="docs">
+          <a href="#functions" class="doclink">Functions</a>
+          <ul class="functions-list deflist">
+              <li>
+                <a href="#run/1" class="deflink">run/1</a>
+              </li>
+          </ul>
+        </li>
+    </ul>
+  </li>
+    <li class="node collapsed">
+
+
+      <a href="https://hexdocs.pm/phoenix/Mix.Tasks.Phoenix.Gen.Channel.html" title="Mix.Tasks.Phoenix.Gen.Channel" class="object-link">Mix.Tasks.Phoenix.Gen.Channel</a>
+
+
+    <ul>
+      <li class="docs">
+        <a href="#summary" class="doclink">Summary</a>
+      </li>
+        <li class="docs">
+          <a href="#functions" class="doclink">Functions</a>
+          <ul class="functions-list deflist">
+              <li>
+                <a href="#run/1" class="deflink">run/1</a>
+              </li>
+          </ul>
+        </li>
+    </ul>
+  </li>
+    <li class="node collapsed">
+
+
+      <a href="https://hexdocs.pm/phoenix/Mix.Tasks.Phoenix.Gen.Html.html" title="Mix.Tasks.Phoenix.Gen.Html" class="object-link">Mix.Tasks.Phoenix.Gen.Html</a>
+
+
+    <ul>
+      <li class="docs">
+        <a href="#summary" class="doclink">Summary</a>
+      </li>
+        <li class="docs">
+          <a href="#functions" class="doclink">Functions</a>
+          <ul class="functions-list deflist">
+              <li>
+                <a href="#run/1" class="deflink">run/1</a>
+              </li>
+          </ul>
+        </li>
+    </ul>
+  </li>
+    <li class="node collapsed">
+
+
+      <a href="https://hexdocs.pm/phoenix/Mix.Tasks.Phoenix.Gen.Json.html" title="Mix.Tasks.Phoenix.Gen.Json" class="object-link">Mix.Tasks.Phoenix.Gen.Json</a>
+
+
+    <ul>
+      <li class="docs">
+        <a href="#summary" class="doclink">Summary</a>
+      </li>
+        <li class="docs">
+          <a href="#functions" class="doclink">Functions</a>
+          <ul class="functions-list deflist">
+              <li>
+                <a href="#run/1" class="deflink">run/1</a>
+              </li>
+          </ul>
+        </li>
+    </ul>
+  </li>
+    <li class="node collapsed">
+
+
+      <a href="https://hexdocs.pm/phoenix/Mix.Tasks.Phoenix.Gen.Model.html" title="Mix.Tasks.Phoenix.Gen.Model" class="object-link">Mix.Tasks.Phoenix.Gen.Model</a>
+
+
+    <ul>
+      <li class="docs">
+        <a href="#summary" class="doclink">Summary</a>
+      </li>
+        <li class="docs">
+          <a href="#functions" class="doclink">Functions</a>
+          <ul class="functions-list deflist">
+              <li>
+                <a href="#run/1" class="deflink">run/1</a>
+              </li>
+          </ul>
+        </li>
+    </ul>
+  </li>
+    <li class="node collapsed">
+
+
+      <a href="https://hexdocs.pm/phoenix/Mix.Tasks.Phoenix.Gen.Secret.html" title="Mix.Tasks.Phoenix.Gen.Secret" class="object-link">Mix.Tasks.Phoenix.Gen.Secret</a>
+
+
+    <ul>
+      <li class="docs">
+        <a href="#summary" class="doclink">Summary</a>
+      </li>
+        <li class="docs">
+          <a href="#functions" class="doclink">Functions</a>
+          <ul class="functions-list deflist">
+              <li>
+                <a href="#run/1" class="deflink">run/1</a>
+              </li>
+          </ul>
+        </li>
+    </ul>
+  </li>
+    <li class="node collapsed">
+
+
+      <a href="https://hexdocs.pm/phoenix/Mix.Tasks.Phoenix.Routes.html" title="Mix.Tasks.Phoenix.Routes" class="object-link">Mix.Tasks.Phoenix.Routes</a>
+
+
+    <ul>
+      <li class="docs">
+        <a href="#summary" class="doclink">Summary</a>
+      </li>
+        <li class="docs">
+          <a href="#functions" class="doclink">Functions</a>
+          <ul class="functions-list deflist">
+              <li>
+                <a href="#run/1" class="deflink">run/1</a>
+              </li>
+          </ul>
+        </li>
+    </ul>
+  </li>
+    <li class="node collapsed">
+
+
+      <a href="https://hexdocs.pm/phoenix/Mix.Tasks.Phoenix.Server.html" title="Mix.Tasks.Phoenix.Server" class="object-link">Mix.Tasks.Phoenix.Server</a>
+
+
+    <ul>
+      <li class="docs">
+        <a href="#summary" class="doclink">Summary</a>
+      </li>
+        <li class="docs">
+          <a href="#functions" class="doclink">Functions</a>
+          <ul class="functions-list deflist">
+              <li>
+                <a href="#run/1" class="deflink">run/1</a>
+              </li>
+          </ul>
+        </li>
+    </ul>
+  </li>
+    <li class="node clicked">
+
+
+      <a href="#content" title="Phoenix" class="object-link">Phoenix</a>
+
+
+  </li>
+    <li class="node collapsed">
+
+
+      <a href="https://hexdocs.pm/phoenix/Phoenix.Channel.html" title="Phoenix.Channel" class="object-link">Phoenix.Channel</a>
+
+
+    <ul>
+      <li class="docs">
+        <a href="#summary" class="doclink">Summary</a>
+      </li>
+        <li class="docs">
+          <a href="#types" class="doclink">Types</a>
+          <ul class="types-list deflist">
+              <li>
+                <a href="#t:reply/0" class="deflink">reply/0</a>
+              </li>
+              <li>
+                <a href="#t:socket_ref/0" class="deflink">socket_ref/0</a>
+              </li>
+          </ul>
+        </li>
+        <li class="docs">
+          <a href="#functions" class="doclink">Functions</a>
+          <ul class="functions-list deflist">
+              <li>
+                <a href="#broadcast/3" class="deflink">broadcast/3</a>
+              </li>
+              <li>
+                <a href="#broadcast%21/3" class="deflink">broadcast!/3</a>
+              </li>
+              <li>
+                <a href="#broadcast_from/3" class="deflink">broadcast_from/3</a>
+              </li>
+              <li>
+                <a href="#broadcast_from%21/3" class="deflink">broadcast_from!/3</a>
+              </li>
+              <li>
+                <a href="#push/3" class="deflink">push/3</a>
+              </li>
+              <li>
+                <a href="#reply/2" class="deflink">reply/2</a>
+              </li>
+              <li>
+                <a href="#socket_ref/1" class="deflink">socket_ref/1</a>
+              </li>
+          </ul>
+        </li>
+        <li class="docs">
+          <a href="#macros" class="doclink">Macros</a>
+          <ul class="macros-list deflist">
+              <li>
+                <a href="#intercept/1" class="deflink">intercept/1</a>
+              </li>
+          </ul>
+        </li>
+        <li class="docs">
+          <a href="#callbacks" class="doclink">Callbacks</a>
+          <ul class="callbacks-list deflist">
+              <li>
+                <a href="#c:code_change/3" class="deflink">code_change/3</a>
+              </li>
+              <li>
+                <a href="#c:handle_in/3" class="deflink">handle_in/3</a>
+              </li>
+              <li>
+                <a href="#c:handle_info/2" class="deflink">handle_info/2</a>
+              </li>
+              <li>
+                <a href="#c:join/3" class="deflink">join/3</a>
+              </li>
+              <li>
+                <a href="#c:terminate/2" class="deflink">terminate/2</a>
+              </li>
+          </ul>
+        </li>
+    </ul>
+  </li>
+    <li class="node collapsed">
+
+
+      <a href="https://hexdocs.pm/phoenix/Phoenix.ChannelTest.html" title="Phoenix.ChannelTest" class="object-link">Phoenix.ChannelTest</a>
+
+
+    <ul>
+      <li class="docs">
+        <a href="#summary" class="doclink">Summary</a>
+      </li>
+        <li class="docs">
+          <a href="#functions" class="doclink">Functions</a>
+          <ul class="functions-list deflist">
+              <li>
+                <a href="#broadcast_from/3" class="deflink">broadcast_from/3</a>
+              </li>
+              <li>
+                <a href="#broadcast_from%21/3" class="deflink">broadcast_from!/3</a>
+              </li>
+              <li>
+                <a href="#close/2" class="deflink">close/2</a>
+              </li>
+              <li>
+                <a href="#join/2" class="deflink">join/2</a>
+              </li>
+              <li>
+                <a href="#join/3" class="deflink">join/3</a>
+              </li>
+              <li>
+                <a href="#join/4" class="deflink">join/4</a>
+              </li>
+              <li>
+                <a href="#leave/1" class="deflink">leave/1</a>
+              </li>
+              <li>
+                <a href="#push/3" class="deflink">push/3</a>
+              </li>
+              <li>
+                <a href="#subscribe_and_join/2" class="deflink">subscribe_and_join/2</a>
+              </li>
+              <li>
+                <a href="#subscribe_and_join/3" class="deflink">subscribe_and_join/3</a>
+              </li>
+              <li>
+                <a href="#subscribe_and_join/4" class="deflink">subscribe_and_join/4</a>
+              </li>
+              <li>
+                <a href="#subscribe_and_join%21/2" class="deflink">subscribe_and_join!/2</a>
+              </li>
+              <li>
+                <a href="#subscribe_and_join%21/3" class="deflink">subscribe_and_join!/3</a>
+              </li>
+              <li>
+                <a href="#subscribe_and_join%21/4" class="deflink">subscribe_and_join!/4</a>
+              </li>
+          </ul>
+        </li>
+        <li class="docs">
+          <a href="#macros" class="doclink">Macros</a>
+          <ul class="macros-list deflist">
+              <li>
+                <a href="#assert_broadcast/3" class="deflink">assert_broadcast/3</a>
+              </li>
+              <li>
+                <a href="#assert_push/3" class="deflink">assert_push/3</a>
+              </li>
+              <li>
+                <a href="#assert_reply/4" class="deflink">assert_reply/4</a>
+              </li>
+              <li>
+                <a href="#connect/2" class="deflink">connect/2</a>
+              </li>
+              <li>
+                <a href="#refute_broadcast/3" class="deflink">refute_broadcast/3</a>
+              </li>
+              <li>
+                <a href="#refute_push/3" class="deflink">refute_push/3</a>
+              </li>
+              <li>
+                <a href="#refute_reply/4" class="deflink">refute_reply/4</a>
+              </li>
+              <li>
+                <a href="#socket/0" class="deflink">socket/0</a>
+              </li>
+              <li>
+                <a href="#socket/2" class="deflink">socket/2</a>
+              </li>
+          </ul>
+        </li>
+    </ul>
+  </li>
+    <li class="node collapsed">
+
+
+      <a href="https://hexdocs.pm/phoenix/Phoenix.CodeReloader.html" title="Phoenix.CodeReloader" class="object-link">Phoenix.CodeReloader</a>
+
+
+    <ul>
+      <li class="docs">
+        <a href="#summary" class="doclink">Summary</a>
+      </li>
+        <li class="docs">
+          <a href="#functions" class="doclink">Functions</a>
+          <ul class="functions-list deflist">
+              <li>
+                <a href="#call/2" class="deflink">call/2</a>
+              </li>
+              <li>
+                <a href="#init/1" class="deflink">init/1</a>
+              </li>
+              <li>
+                <a href="#reload%21/1" class="deflink">reload!/1</a>
+              </li>
+          </ul>
+        </li>
+    </ul>
+  </li>
+    <li class="node collapsed">
+
+
+      <a href="https://hexdocs.pm/phoenix/Phoenix.ConnTest.html" title="Phoenix.ConnTest" class="object-link">Phoenix.ConnTest</a>
+
+
+    <ul>
+      <li class="docs">
+        <a href="#summary" class="doclink">Summary</a>
+      </li>
+        <li class="docs">
+          <a href="#functions" class="doclink">Functions</a>
+          <ul class="functions-list deflist">
+              <li>
+                <a href="#assert_error_sent/2" class="deflink">assert_error_sent/2</a>
+              </li>
+              <li>
+                <a href="#bypass_through/1" class="deflink">bypass_through/1</a>
+              </li>
+              <li>
+                <a href="#bypass_through/3" class="deflink">bypass_through/3</a>
+              </li>
+              <li>
+                <a href="#clear_flash/1" class="deflink">clear_flash/1</a>
+              </li>
+              <li>
+                <a href="#conn/0" class="deflink">conn/0</a>
+              </li>
+              <li>
+                <a href="#conn/3" class="deflink">conn/3</a>
+              </li>
+              <li>
+                <a href="#delete_req_cookie/2" class="deflink">delete_req_cookie/2</a>
+              </li>
+              <li>
+                <a href="#dispatch/5" class="deflink">dispatch/5</a>
+              </li>
+              <li>
+                <a href="#ensure_recycled/1" class="deflink">ensure_recycled/1</a>
+              </li>
+              <li>
+                <a href="#fetch_flash/1" class="deflink">fetch_flash/1</a>
+              </li>
+              <li>
+                <a href="#get_flash/1" class="deflink">get_flash/1</a>
+              </li>
+              <li>
+                <a href="#get_flash/2" class="deflink">get_flash/2</a>
+              </li>
+              <li>
+                <a href="#html_response/2" class="deflink">html_response/2</a>
+              </li>
+              <li>
+                <a href="#json_response/2" class="deflink">json_response/2</a>
+              </li>
+              <li>
+                <a href="#put_flash/3" class="deflink">put_flash/3</a>
+              </li>
+              <li>
+                <a href="#put_req_cookie/3" class="deflink">put_req_cookie/3</a>
+              </li>
+              <li>
+                <a href="#recycle/1" class="deflink">recycle/1</a>
+              </li>
+              <li>
+                <a href="#redirected_to/2" class="deflink">redirected_to/2</a>
+              </li>
+              <li>
+                <a href="#response/2" class="deflink">response/2</a>
+              </li>
+              <li>
+                <a href="#response_content_type/2" class="deflink">response_content_type/2</a>
+              </li>
+              <li>
+                <a href="#text_response/2" class="deflink">text_response/2</a>
+              </li>
+          </ul>
+        </li>
+        <li class="docs">
+          <a href="#macros" class="doclink">Macros</a>
+          <ul class="macros-list deflist">
+              <li>
+                <a href="#connect/3" class="deflink">connect/3</a>
+              </li>
+              <li>
+                <a href="#delete/3" class="deflink">delete/3</a>
+              </li>
+              <li>
+                <a href="#get/3" class="deflink">get/3</a>
+              </li>
+              <li>
+                <a href="#head/3" class="deflink">head/3</a>
+              </li>
+              <li>
+                <a href="#options/3" class="deflink">options/3</a>
+              </li>
+              <li>
+                <a href="#patch/3" class="deflink">patch/3</a>
+              </li>
+              <li>
+                <a href="#post/3" class="deflink">post/3</a>
+              </li>
+              <li>
+                <a href="#put/3" class="deflink">put/3</a>
+              </li>
+              <li>
+                <a href="#trace/3" class="deflink">trace/3</a>
+              </li>
+          </ul>
+        </li>
+    </ul>
+  </li>
+    <li class="node collapsed">
+
+
+      <a href="https://hexdocs.pm/phoenix/Phoenix.Controller.html" title="Phoenix.Controller" class="object-link">Phoenix.Controller</a>
+
+
+    <ul>
+      <li class="docs">
+        <a href="#summary" class="doclink">Summary</a>
+      </li>
+        <li class="docs">
+          <a href="#functions" class="doclink">Functions</a>
+          <ul class="functions-list deflist">
+              <li>
+                <a href="#accepts/2" class="deflink">accepts/2</a>
+              </li>
+              <li>
+                <a href="#action_name/1" class="deflink">action_name/1</a>
+              </li>
+              <li>
+                <a href="#allow_jsonp/2" class="deflink">allow_jsonp/2</a>
+              </li>
+              <li>
+                <a href="#clear_flash/1" class="deflink">clear_flash/1</a>
+              </li>
+              <li>
+                <a href="#controller_module/1" class="deflink">controller_module/1</a>
+              </li>
+              <li>
+                <a href="#delete_csrf_token/0" class="deflink">delete_csrf_token/0</a>
+              </li>
+              <li>
+                <a href="#endpoint_module/1" class="deflink">endpoint_module/1</a>
+              </li>
+              <li>
+                <a href="#fetch_flash/2" class="deflink">fetch_flash/2</a>
+              </li>
+              <li>
+                <a href="#get_csrf_token/0" class="deflink">get_csrf_token/0</a>
+              </li>
+              <li>
+                <a href="#get_flash/1" class="deflink">get_flash/1</a>
+              </li>
+              <li>
+                <a href="#get_flash/2" class="deflink">get_flash/2</a>
+              </li>
+              <li>
+                <a href="#get_format/1" class="deflink">get_format/1</a>
+              </li>
+              <li>
+                <a href="#html/2" class="deflink">html/2</a>
+              </li>
+              <li>
+                <a href="#json/2" class="deflink">json/2</a>
+              </li>
+              <li>
+                <a href="#layout/1" class="deflink">layout/1</a>
+              </li>
+              <li>
+                <a href="#layout_formats/1" class="deflink">layout_formats/1</a>
+              </li>
+              <li>
+                <a href="#protect_from_forgery/2" class="deflink">protect_from_forgery/2</a>
+              </li>
+              <li>
+                <a href="#put_flash/3" class="deflink">put_flash/3</a>
+              </li>
+              <li>
+                <a href="#put_format/2" class="deflink">put_format/2</a>
+              </li>
+              <li>
+                <a href="#put_layout/2" class="deflink">put_layout/2</a>
+              </li>
+              <li>
+                <a href="#put_layout_formats/2" class="deflink">put_layout_formats/2</a>
+              </li>
+              <li>
+                <a href="#put_new_layout/2" class="deflink">put_new_layout/2</a>
+              </li>
+              <li>
+                <a href="#put_new_view/2" class="deflink">put_new_view/2</a>
+              </li>
+              <li>
+                <a href="#put_secure_browser_headers/2" class="deflink">put_secure_browser_headers/2</a>
+              </li>
+              <li>
+                <a href="#put_view/2" class="deflink">put_view/2</a>
+              </li>
+              <li>
+                <a href="#redirect/2" class="deflink">redirect/2</a>
+              </li>
+              <li>
+                <a href="#render/2" class="deflink">render/2</a>
+              </li>
+              <li>
+                <a href="#render/3" class="deflink">render/3</a>
+              </li>
+              <li>
+                <a href="#render/4" class="deflink">render/4</a>
+              </li>
+              <li>
+                <a href="#router_module/1" class="deflink">router_module/1</a>
+              </li>
+              <li>
+                <a href="#scrub_params/2" class="deflink">scrub_params/2</a>
+              </li>
+              <li>
+                <a href="#text/2" class="deflink">text/2</a>
+              </li>
+              <li>
+                <a href="#view_module/1" class="deflink">view_module/1</a>
+              </li>
+              <li>
+                <a href="#view_template/1" class="deflink">view_template/1</a>
+              </li>
+          </ul>
+        </li>
+    </ul>
+  </li>
+    <li class="node collapsed">
+
+
+      <a href="https://hexdocs.pm/phoenix/Phoenix.Controller.Logger.html" title="Phoenix.Controller.Logger" class="object-link">Phoenix.Controller.Logger</a>
+
+
+    <ul>
+      <li class="docs">
+        <a href="#summary" class="doclink">Summary</a>
+      </li>
+        <li class="docs">
+          <a href="#functions" class="doclink">Functions</a>
+          <ul class="functions-list deflist">
+              <li>
+                <a href="#call/2" class="deflink">call/2</a>
+              </li>
+              <li>
+                <a href="#init/1" class="deflink">init/1</a>
+              </li>
+          </ul>
+        </li>
+    </ul>
+  </li>
+    <li class="node collapsed">
+
+
+      <a href="https://hexdocs.pm/phoenix/Phoenix.Controller.Pipeline.html" title="Phoenix.Controller.Pipeline" class="object-link">Phoenix.Controller.Pipeline</a>
+
+
+    <ul>
+      <li class="docs">
+        <a href="#summary" class="doclink">Summary</a>
+      </li>
+        <li class="docs">
+          <a href="#macros" class="doclink">Macros</a>
+          <ul class="macros-list deflist">
+              <li>
+                <a href="#plug/1" class="deflink">plug/1</a>
+              </li>
+              <li>
+                <a href="#plug/2" class="deflink">plug/2</a>
+              </li>
+          </ul>
+        </li>
+    </ul>
+  </li>
+    <li class="node collapsed">
+
+
+      <a href="https://hexdocs.pm/phoenix/Phoenix.Digester.html" title="Phoenix.Digester" class="object-link">Phoenix.Digester</a>
+
+
+    <ul>
+      <li class="docs">
+        <a href="#summary" class="doclink">Summary</a>
+      </li>
+        <li class="docs">
+          <a href="#functions" class="doclink">Functions</a>
+          <ul class="functions-list deflist">
+              <li>
+                <a href="#compile/2" class="deflink">compile/2</a>
+              </li>
+          </ul>
+        </li>
+    </ul>
+  </li>
+    <li class="node collapsed">
+
+
+      <a href="https://hexdocs.pm/phoenix/Phoenix.Endpoint.html" title="Phoenix.Endpoint" class="object-link">Phoenix.Endpoint</a>
+
+
+    <ul>
+      <li class="docs">
+        <a href="#summary" class="doclink">Summary</a>
+      </li>
+        <li class="docs">
+          <a href="#functions" class="doclink">Functions</a>
+          <ul class="functions-list deflist">
+              <li>
+                <a href="#server?/2" class="deflink">server?/2</a>
+              </li>
+          </ul>
+        </li>
+        <li class="docs">
+          <a href="#macros" class="doclink">Macros</a>
+          <ul class="macros-list deflist">
+              <li>
+                <a href="#instrument/4" class="deflink">instrument/4</a>
+              </li>
+              <li>
+                <a href="#plug/2" class="deflink">plug/2</a>
+              </li>
+              <li>
+                <a href="#socket/2" class="deflink">socket/2</a>
+              </li>
+          </ul>
+        </li>
+    </ul>
+  </li>
+    <li class="node collapsed">
+
+
+      <a href="https://hexdocs.pm/phoenix/Phoenix.Endpoint.CowboyHandler.html" title="Phoenix.Endpoint.CowboyHandler" class="object-link">Phoenix.Endpoint.CowboyHandler</a>
+
+
+    <ul>
+      <li class="docs">
+        <a href="#summary" class="doclink">Summary</a>
+      </li>
+        <li class="docs">
+          <a href="#functions" class="doclink">Functions</a>
+          <ul class="functions-list deflist">
+              <li>
+                <a href="#child_spec/3" class="deflink">child_spec/3</a>
+              </li>
+              <li>
+                <a href="#start_link/3" class="deflink">start_link/3</a>
+              </li>
+          </ul>
+        </li>
+    </ul>
+  </li>
+    <li class="node collapsed">
+
+
+      <a href="https://hexdocs.pm/phoenix/Phoenix.Endpoint.Handler.html" title="Phoenix.Endpoint.Handler" class="object-link">Phoenix.Endpoint.Handler</a>
+
+
+    <ul>
+      <li class="docs">
+        <a href="#summary" class="doclink">Summary</a>
+      </li>
+        <li class="docs">
+          <a href="#callbacks" class="doclink">Callbacks</a>
+          <ul class="callbacks-list deflist">
+              <li>
+                <a href="#c:child_spec/3" class="deflink">child_spec/3</a>
+              </li>
+          </ul>
+        </li>
+    </ul>
+  </li>
+    <li class="node collapsed">
+
+
+      <a href="https://hexdocs.pm/phoenix/Phoenix.Naming.html" title="Phoenix.Naming" class="object-link">Phoenix.Naming</a>
+
+
+    <ul>
+      <li class="docs">
+        <a href="#summary" class="doclink">Summary</a>
+      </li>
+        <li class="docs">
+          <a href="#functions" class="doclink">Functions</a>
+          <ul class="functions-list deflist">
+              <li>
+                <a href="#camelize/1" class="deflink">camelize/1</a>
+              </li>
+              <li>
+                <a href="#humanize/1" class="deflink">humanize/1</a>
+              </li>
+              <li>
+                <a href="#resource_name/2" class="deflink">resource_name/2</a>
+              </li>
+              <li>
+                <a href="#underscore/1" class="deflink">underscore/1</a>
+              </li>
+              <li>
+                <a href="#unsuffix/2" class="deflink">unsuffix/2</a>
+              </li>
+          </ul>
+        </li>
+    </ul>
+  </li>
+    <li class="node collapsed">
+
+
+      <a href="https://hexdocs.pm/phoenix/Phoenix.PubSub.html" title="Phoenix.PubSub" class="object-link">Phoenix.PubSub</a>
+
+
+    <ul>
+      <li class="docs">
+        <a href="#summary" class="doclink">Summary</a>
+      </li>
+        <li class="docs">
+          <a href="#functions" class="doclink">Functions</a>
+          <ul class="functions-list deflist">
+              <li>
+                <a href="#broadcast/3" class="deflink">broadcast/3</a>
+              </li>
+              <li>
+                <a href="#broadcast%21/3" class="deflink">broadcast!/3</a>
+              </li>
+              <li>
+                <a href="#broadcast_from/4" class="deflink">broadcast_from/4</a>
+              </li>
+              <li>
+                <a href="#broadcast_from%21/4" class="deflink">broadcast_from!/4</a>
+              </li>
+              <li>
+                <a href="#subscribe/4" class="deflink">subscribe/4</a>
+              </li>
+              <li>
+                <a href="#unsubscribe/3" class="deflink">unsubscribe/3</a>
+              </li>
+          </ul>
+        </li>
+    </ul>
+  </li>
+    <li class="node collapsed">
+
+
+      <a href="https://hexdocs.pm/phoenix/Phoenix.PubSub.GC.html" title="Phoenix.PubSub.GC" class="object-link">Phoenix.PubSub.GC</a>
+
+
+    <ul>
+      <li class="docs">
+        <a href="#summary" class="doclink">Summary</a>
+      </li>
+        <li class="docs">
+          <a href="#functions" class="doclink">Functions</a>
+          <ul class="functions-list deflist">
+              <li>
+                <a href="#down/2" class="deflink">down/2</a>
+              </li>
+              <li>
+                <a href="#start_link/2" class="deflink">start_link/2</a>
+              </li>
+              <li>
+                <a href="#unsubscribe/4" class="deflink">unsubscribe/4</a>
+              </li>
+          </ul>
+        </li>
+    </ul>
+  </li>
+    <li class="node collapsed">
+
+
+      <a href="https://hexdocs.pm/phoenix/Phoenix.PubSub.Local.html" title="Phoenix.PubSub.Local" class="object-link">Phoenix.PubSub.Local</a>
+
+
+    <ul>
+      <li class="docs">
+        <a href="#summary" class="doclink">Summary</a>
+      </li>
+        <li class="docs">
+          <a href="#functions" class="doclink">Functions</a>
+          <ul class="functions-list deflist">
+              <li>
+                <a href="#broadcast/5" class="deflink">broadcast/5</a>
+              </li>
+              <li>
+                <a href="#start_link/2" class="deflink">start_link/2</a>
+              </li>
+              <li>
+                <a href="#subscribe/5" class="deflink">subscribe/5</a>
+              </li>
+              <li>
+                <a href="#subscribers/3" class="deflink">subscribers/3</a>
+              </li>
+              <li>
+                <a href="#subscribers_with_fastlanes/3" class="deflink">subscribers_with_fastlanes/3</a>
+              </li>
+              <li>
+                <a href="#unsubscribe/4" class="deflink">unsubscribe/4</a>
+              </li>
+          </ul>
+        </li>
+    </ul>
+  </li>
+    <li class="node collapsed">
+
+
+      <a href="https://hexdocs.pm/phoenix/Phoenix.PubSub.LocalSupervisor.html" title="Phoenix.PubSub.LocalSupervisor" class="object-link">Phoenix.PubSub.LocalSupervisor</a>
+
+
+    <ul>
+      <li class="docs">
+        <a href="#summary" class="doclink">Summary</a>
+      </li>
+        <li class="docs">
+          <a href="#functions" class="doclink">Functions</a>
+          <ul class="functions-list deflist">
+              <li>
+                <a href="#start_link/3" class="deflink">start_link/3</a>
+              </li>
+          </ul>
+        </li>
+    </ul>
+  </li>
+    <li class="node collapsed">
+
+
+      <a href="https://hexdocs.pm/phoenix/Phoenix.PubSub.PG2.html" title="Phoenix.PubSub.PG2" class="object-link">Phoenix.PubSub.PG2</a>
+
+
+    <ul>
+      <li class="docs">
+        <a href="#summary" class="doclink">Summary</a>
+      </li>
+        <li class="docs">
+          <a href="#functions" class="doclink">Functions</a>
+          <ul class="functions-list deflist">
+              <li>
+                <a href="#start_link/2" class="deflink">start_link/2</a>
+              </li>
+          </ul>
+        </li>
+    </ul>
+  </li>
+    <li class="node collapsed">
+
+
+      <a href="https://hexdocs.pm/phoenix/Phoenix.Router.html" title="Phoenix.Router" class="object-link">Phoenix.Router</a>
+
+
+    <ul>
+      <li class="docs">
+        <a href="#summary" class="doclink">Summary</a>
+      </li>
+        <li class="docs">
+          <a href="#macros" class="doclink">Macros</a>
+          <ul class="macros-list deflist">
+              <li>
+                <a href="#connect/4" class="deflink">connect/4</a>
+              </li>
+              <li>
+                <a href="#delete/4" class="deflink">delete/4</a>
+              </li>
+              <li>
+                <a href="#forward/4" class="deflink">forward/4</a>
+              </li>
+              <li>
+                <a href="#get/4" class="deflink">get/4</a>
+              </li>
+              <li>
+                <a href="#head/4" class="deflink">head/4</a>
+              </li>
+              <li>
+                <a href="#match/5" class="deflink">match/5</a>
+              </li>
+              <li>
+                <a href="#options/4" class="deflink">options/4</a>
+              </li>
+              <li>
+                <a href="#patch/4" class="deflink">patch/4</a>
+              </li>
+              <li>
+                <a href="#pipe_through/1" class="deflink">pipe_through/1</a>
+              </li>
+              <li>
+                <a href="#pipeline/2" class="deflink">pipeline/2</a>
+              </li>
+              <li>
+                <a href="#plug/2" class="deflink">plug/2</a>
+              </li>
+              <li>
+                <a href="#post/4" class="deflink">post/4</a>
+              </li>
+              <li>
+                <a href="#put/4" class="deflink">put/4</a>
+              </li>
+              <li>
+                <a href="#resources/2" class="deflink">resources/2</a>
+              </li>
+              <li>
+                <a href="#resources/3" class="deflink">resources/3</a>
+              </li>
+              <li>
+                <a href="#resources/4" class="deflink">resources/4</a>
+              </li>
+              <li>
+                <a href="#scope/2" class="deflink">scope/2</a>
+              </li>
+              <li>
+                <a href="#scope/3" class="deflink">scope/3</a>
+              </li>
+              <li>
+                <a href="#scope/4" class="deflink">scope/4</a>
+              </li>
+              <li>
+                <a href="#trace/4" class="deflink">trace/4</a>
+              </li>
+          </ul>
+        </li>
+    </ul>
+  </li>
+    <li class="node collapsed">
+
+
+      <a href="https://hexdocs.pm/phoenix/Phoenix.Socket.html" title="Phoenix.Socket" class="object-link">Phoenix.Socket</a>
+
+
+    <ul>
+      <li class="docs">
+        <a href="#summary" class="doclink">Summary</a>
+      </li>
+        <li class="docs">
+          <a href="#types" class="doclink">Types</a>
+          <ul class="types-list deflist">
+              <li>
+                <a href="#t:t/0" class="deflink">t/0</a>
+              </li>
+          </ul>
+        </li>
+        <li class="docs">
+          <a href="#functions" class="doclink">Functions</a>
+          <ul class="functions-list deflist">
+              <li>
+                <a href="#assign/3" class="deflink">assign/3</a>
+              </li>
+          </ul>
+        </li>
+        <li class="docs">
+          <a href="#macros" class="doclink">Macros</a>
+          <ul class="macros-list deflist">
+              <li>
+                <a href="#channel/3" class="deflink">channel/3</a>
+              </li>
+              <li>
+                <a href="#transport/3" class="deflink">transport/3</a>
+              </li>
+          </ul>
+        </li>
+        <li class="docs">
+          <a href="#callbacks" class="doclink">Callbacks</a>
+          <ul class="callbacks-list deflist">
+              <li>
+                <a href="#c:connect/2" class="deflink">connect/2</a>
+              </li>
+              <li>
+                <a href="#c:id/1" class="deflink">id/1</a>
+              </li>
+          </ul>
+        </li>
+    </ul>
+  </li>
+    <li class="node collapsed">
+
+
+      <a href="https://hexdocs.pm/phoenix/Phoenix.Socket.Broadcast.html" title="Phoenix.Socket.Broadcast" class="object-link">Phoenix.Socket.Broadcast</a>
+
+
+  </li>
+    <li class="node collapsed">
+
+
+      <a href="https://hexdocs.pm/phoenix/Phoenix.Socket.Message.html" title="Phoenix.Socket.Message" class="object-link">Phoenix.Socket.Message</a>
+
+
+    <ul>
+      <li class="docs">
+        <a href="#summary" class="doclink">Summary</a>
+      </li>
+        <li class="docs">
+          <a href="#functions" class="doclink">Functions</a>
+          <ul class="functions-list deflist">
+              <li>
+                <a href="#from_map%21/1" class="deflink">from_map!/1</a>
+              </li>
+          </ul>
+        </li>
+    </ul>
+  </li>
+    <li class="node collapsed">
+
+
+      <a href="https://hexdocs.pm/phoenix/Phoenix.Socket.Reply.html" title="Phoenix.Socket.Reply" class="object-link">Phoenix.Socket.Reply</a>
+
+
+  </li>
+    <li class="node collapsed">
+
+
+      <a href="https://hexdocs.pm/phoenix/Phoenix.Socket.Transport.html" title="Phoenix.Socket.Transport" class="object-link">Phoenix.Socket.Transport</a>
+
+
+    <ul>
+      <li class="docs">
+        <a href="#summary" class="doclink">Summary</a>
+      </li>
+        <li class="docs">
+          <a href="#functions" class="doclink">Functions</a>
+          <ul class="functions-list deflist">
+              <li>
+                <a href="#check_origin/5" class="deflink">check_origin/5</a>
+              </li>
+              <li>
+                <a href="#connect/6" class="deflink">connect/6</a>
+              </li>
+              <li>
+                <a href="#dispatch/3" class="deflink">dispatch/3</a>
+              </li>
+              <li>
+                <a href="#force_ssl/4" class="deflink">force_ssl/4</a>
+              </li>
+              <li>
+                <a href="#on_exit_message/2" class="deflink">on_exit_message/2</a>
+              </li>
+              <li>
+                <a href="#protocol_version/0" class="deflink">protocol_version/0</a>
+              </li>
+              <li>
+                <a href="#transport_log/2" class="deflink">transport_log/2</a>
+              </li>
+          </ul>
+        </li>
+        <li class="docs">
+          <a href="#callbacks" class="doclink">Callbacks</a>
+          <ul class="callbacks-list deflist">
+              <li>
+                <a href="#c:default_config/0" class="deflink">default_config/0</a>
+              </li>
+          </ul>
+        </li>
+    </ul>
+  </li>
+    <li class="node collapsed">
+
+
+      <a href="https://hexdocs.pm/phoenix/Phoenix.Supervisor.html" title="Phoenix.Supervisor" class="object-link">Phoenix.Supervisor</a>
+
+
+    <ul>
+      <li class="docs">
+        <a href="#summary" class="doclink">Summary</a>
+      </li>
+        <li class="docs">
+          <a href="#functions" class="doclink">Functions</a>
+          <ul class="functions-list deflist">
+              <li>
+                <a href="#init/1" class="deflink">init/1</a>
+              </li>
+              <li>
+                <a href="#start_link/0" class="deflink">start_link/0</a>
+              </li>
+          </ul>
+        </li>
+    </ul>
+  </li>
+    <li class="node collapsed">
+
+
+      <a href="https://hexdocs.pm/phoenix/Phoenix.Template.html" title="Phoenix.Template" class="object-link">Phoenix.Template</a>
+
+
+    <ul>
+      <li class="docs">
+        <a href="#summary" class="doclink">Summary</a>
+      </li>
+        <li class="docs">
+          <a href="#types" class="doclink">Types</a>
+          <ul class="types-list deflist">
+              <li>
+                <a href="#t:name/0" class="deflink">name/0</a>
+              </li>
+              <li>
+                <a href="#t:path/0" class="deflink">path/0</a>
+              </li>
+              <li>
+                <a href="#t:root/0" class="deflink">root/0</a>
+              </li>
+          </ul>
+        </li>
+        <li class="docs">
+          <a href="#functions" class="doclink">Functions</a>
+          <ul class="functions-list deflist">
+              <li>
+                <a href="#engines/0" class="deflink">engines/0</a>
+              </li>
+              <li>
+                <a href="#find_all/1" class="deflink">find_all/1</a>
+              </li>
+              <li>
+                <a href="#format_encoder/1" class="deflink">format_encoder/1</a>
+              </li>
+              <li>
+                <a href="#hash/1" class="deflink">hash/1</a>
+              </li>
+              <li>
+                <a href="#module_to_template_root/3" class="deflink">module_to_template_root/3</a>
+              </li>
+              <li>
+                <a href="#template_path_to_name/2" class="deflink">template_path_to_name/2</a>
+              </li>
+          </ul>
+        </li>
+    </ul>
+  </li>
+    <li class="node collapsed">
+
+
+      <a href="https://hexdocs.pm/phoenix/Phoenix.Template.EExEngine.html" title="Phoenix.Template.EExEngine" class="object-link">Phoenix.Template.EExEngine</a>
+
+
+    <ul>
+      <li class="docs">
+        <a href="#summary" class="doclink">Summary</a>
+      </li>
+        <li class="docs">
+          <a href="#functions" class="doclink">Functions</a>
+          <ul class="functions-list deflist">
+              <li>
+                <a href="#compile/2" class="deflink">compile/2</a>
+              </li>
+          </ul>
+        </li>
+    </ul>
+  </li>
+    <li class="node collapsed">
+
+
+      <a href="https://hexdocs.pm/phoenix/Phoenix.Template.Engine.html" title="Phoenix.Template.Engine" class="object-link">Phoenix.Template.Engine</a>
+
+
+    <ul>
+      <li class="docs">
+        <a href="#summary" class="doclink">Summary</a>
+      </li>
+        <li class="docs">
+          <a href="#callbacks" class="doclink">Callbacks</a>
+          <ul class="callbacks-list deflist">
+              <li>
+                <a href="#c:compile/2" class="deflink">compile/2</a>
+              </li>
+          </ul>
+        </li>
+    </ul>
+  </li>
+    <li class="node collapsed">
+
+
+      <a href="https://hexdocs.pm/phoenix/Phoenix.Template.ExsEngine.html" title="Phoenix.Template.ExsEngine" class="object-link">Phoenix.Template.ExsEngine</a>
+
+
+    <ul>
+      <li class="docs">
+        <a href="#summary" class="doclink">Summary</a>
+      </li>
+        <li class="docs">
+          <a href="#functions" class="doclink">Functions</a>
+          <ul class="functions-list deflist">
+              <li>
+                <a href="#compile/2" class="deflink">compile/2</a>
+              </li>
+          </ul>
+        </li>
+    </ul>
+  </li>
+    <li class="node collapsed">
+
+
+      <a href="https://hexdocs.pm/phoenix/Phoenix.Template.HTML.html" title="Phoenix.Template.HTML" class="object-link">Phoenix.Template.HTML</a>
+
+
+    <ul>
+      <li class="docs">
+        <a href="#summary" class="doclink">Summary</a>
+      </li>
+        <li class="docs">
+          <a href="#functions" class="doclink">Functions</a>
+          <ul class="functions-list deflist">
+              <li>
+                <a href="#encode_to_iodata%21/1" class="deflink">encode_to_iodata!/1</a>
+              </li>
+          </ul>
+        </li>
+    </ul>
+  </li>
+    <li class="node collapsed">
+
+
+      <a href="https://hexdocs.pm/phoenix/Phoenix.Token.html" title="Phoenix.Token" class="object-link">Phoenix.Token</a>
+
+
+    <ul>
+      <li class="docs">
+        <a href="#summary" class="doclink">Summary</a>
+      </li>
+        <li class="docs">
+          <a href="#functions" class="doclink">Functions</a>
+          <ul class="functions-list deflist">
+              <li>
+                <a href="#sign/4" class="deflink">sign/4</a>
+              </li>
+              <li>
+                <a href="#verify/4" class="deflink">verify/4</a>
+              </li>
+          </ul>
+        </li>
+    </ul>
+  </li>
+    <li class="node collapsed">
+
+
+      <a href="https://hexdocs.pm/phoenix/Phoenix.Transports.LongPoll.html" title="Phoenix.Transports.LongPoll" class="object-link">Phoenix.Transports.LongPoll</a>
+
+
+    <ul>
+      <li class="docs">
+        <a href="#summary" class="doclink">Summary</a>
+      </li>
+        <li class="docs">
+          <a href="#functions" class="doclink">Functions</a>
+          <ul class="functions-list deflist">
+              <li>
+                <a href="#default_config/0" class="deflink">default_config/0</a>
+              </li>
+          </ul>
+        </li>
+    </ul>
+  </li>
+    <li class="node collapsed">
+
+
+      <a href="https://hexdocs.pm/phoenix/Phoenix.Transports.Serializer.html" title="Phoenix.Transports.Serializer" class="object-link">Phoenix.Transports.Serializer</a>
+
+
+    <ul>
+      <li class="docs">
+        <a href="#summary" class="doclink">Summary</a>
+      </li>
+        <li class="docs">
+          <a href="#callbacks" class="doclink">Callbacks</a>
+          <ul class="callbacks-list deflist">
+              <li>
+                <a href="#c:decode%21/2" class="deflink">decode!/2</a>
+              </li>
+              <li>
+                <a href="#c:encode%21/1" class="deflink">encode!/1</a>
+              </li>
+              <li>
+                <a href="#c:fastlane%21/1" class="deflink">fastlane!/1</a>
+              </li>
+          </ul>
+        </li>
+    </ul>
+  </li>
+    <li class="node collapsed">
+
+
+      <a href="https://hexdocs.pm/phoenix/Phoenix.Transports.WebSocket.html" title="Phoenix.Transports.WebSocket" class="object-link">Phoenix.Transports.WebSocket</a>
+
+
+    <ul>
+      <li class="docs">
+        <a href="#summary" class="doclink">Summary</a>
+      </li>
+        <li class="docs">
+          <a href="#functions" class="doclink">Functions</a>
+          <ul class="functions-list deflist">
+              <li>
+                <a href="#default_config/0" class="deflink">default_config/0</a>
+              </li>
+          </ul>
+        </li>
+    </ul>
+  </li>
+    <li class="node collapsed">
+
+
+      <a href="https://hexdocs.pm/phoenix/Phoenix.View.html" title="Phoenix.View" class="object-link">Phoenix.View</a>
+
+
+    <ul>
+      <li class="docs">
+        <a href="#summary" class="doclink">Summary</a>
+      </li>
+        <li class="docs">
+          <a href="#functions" class="doclink">Functions</a>
+          <ul class="functions-list deflist">
+              <li>
+                <a href="#render/3" class="deflink">render/3</a>
+              </li>
+              <li>
+                <a href="#render_existing/3" class="deflink">render_existing/3</a>
+              </li>
+              <li>
+                <a href="#render_many/4" class="deflink">render_many/4</a>
+              </li>
+              <li>
+                <a href="#render_one/4" class="deflink">render_one/4</a>
+              </li>
+              <li>
+                <a href="#render_to_iodata/3" class="deflink">render_to_iodata/3</a>
+              </li>
+              <li>
+                <a href="#render_to_string/3" class="deflink">render_to_string/3</a>
+              </li>
+          </ul>
+        </li>
+        <li class="docs">
+          <a href="#macros" class="doclink">Macros</a>
+          <ul class="macros-list deflist">
+              <li>
+                <a href="#__using__/1" class="deflink">__using__/1</a>
+              </li>
+          </ul>
+        </li>
+    </ul>
+  </li>
+</ul>
+-->
+  <div class="sidebar-noResults"></div>
+</section>
+
+
+
+
+
+
+
+<section class="content">
+  <div id="content" class="content-inner">
+
+
+      <h1>
+        <small class="visible-xs">Paris v2.5.3</small>
+        Paris
+
+
+          <a href="https://github.com/phoenixframework/phoenix/blob/v1.1.4/lib/phoenix.ex#L1" title="View Source" class="view-source" rel="help">
+            <i class="icon-code"></i>
+          </a>
+
+      </h1>
+
+
+        <section id="moduledoc" class="docstring">
+          <p>This is documentation for the Phoenix project.</p>
+<p>By default, Phoenix applications depend on other packages besides
+Phoenix itself. Below we provide a short explanation with links to
+their documentation for each of those projects:</p>
+<ul>
+<li><p><a href="http://hexdocs.pm/ecto">Ecto</a> - a language integrated query and
+database wrapper</p>
+</li>
+<li><p><a href="http://hexdocs.pm/phoenix">Phoenix</a> - the Phoenix web framework
+(these docs)</p>
+</li>
+<li><p><a href="http://hexdocs.pm/phoenix_html">Phoenix HTML</a> - conveniences for
+working with HTML in Phoenix</p>
+</li>
+<li><p><a href="http://hexdocs.pm/plug">Plug</a> - a specification and conveniences
+for composable modules in between web applications</p>
+</li>
+<li><a href="http://hexdocs.pm/gettext">Gettext</a> - Internationalization and
+localization through gettext
+</li>
+</ul>
+<p>There are also optional packages depending on your configuration:</p>
+<ul>
+<li><a href="http://hexdocs.pm/phoenix_pubsub_redis">Phoenix PubSub Redis</a> - use
+Redis to power Phoenix PubSub system
+</li>
+</ul>
+
+        </section>
+
+
+
+
+
+
+
+
+
+
+
+        <footer class="footer">
+      <p>
+        <span class="line">
+          Built using
+          <a href="#" title="cf-doc" rel="help" target="_blank">cf-doc</a> (v0.11.2),
+        </span>
+        <span class="line">
+          designed by
+          <a href="https://twitter.com/dignifiedquire" target="_blank" title="@dignifiedquire">Friedel Ziegelmayer</a>.
+          </span>
+      </p>
+      <button class="night-mode-toggle">
+    </button></footer>
+  </div>
+</section>
+</div>
+  <script src="assets/app-1d1b741c5e.js"></script>
+
+
+
+</body><span class="gr__tooltip"><span class="gr__tooltip-content"></span><i class="gr__tooltip-logo"></i><span class="gr__triangle"></span></span></html>

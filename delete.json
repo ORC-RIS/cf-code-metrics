@@ -1,20 +1,22 @@
 {
-  "path": "test/analyzer/data/subdirectories",
-  "files": [
+  "nodes": [
     {
-      "file": "test/analyzer/data/subdirectories/file1.cfm",
-      "includes": [
-        "/dirA/file2.cfm"
-      ]
+      "id": "/file1.cfm",
+      "label": "/file1.cfm"
     },
     {
-      "file": "test/analyzer/data/subdirectories/dirA/file2.cfm",
-      "includes": []
+      "id": "/dirA/file2.cfm",
+      "label": "/dirA/file2.cfm"
     },
     {
-      "file": "test/analyzer/data/subdirectories/dirA/dirAA/file3.cfm",
-      "includes": []
+      "id": "/dirA/dirAA/file3.cfm",
+      "label": "/dirA/dirAA/file3.cfm"
     }
   ],
-  "metrics": {}
+  "edges": [
+    {
+      "from": "/file1.cfm",
+      "to": "/dirA/file2.cfm"
+    }
+  ]
 }
