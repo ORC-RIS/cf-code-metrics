@@ -1,4 +1,4 @@
-cf-components = {
+{
   "components": [
     {
       "DISPLAYNAME": "Application",
