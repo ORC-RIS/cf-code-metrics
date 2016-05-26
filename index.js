@@ -9,6 +9,12 @@ var cytoscape = require("./lib/cytoscape-format.js")
 var vis = require("./lib/visjs-format.js")
 var docEngine = require("./lib/doc-engine.js")
 
+// promise config
+var Promise = require("bluebird")
+Promise.onPossiblyUnhandledRejection(error => {
+  throw error
+})
+
 var save = (data, fileName) => {
   return new Promise((resolve, reject) => {
 
@@ -51,6 +57,6 @@ docEngine.getMetadata()
 */
 
 docEngine.getMetadata('./components-data.js')
-  .then(metadata => docEngine.generateMD(metadata))
-  .then(metadata => console.log(metadata))
-  .catch(err => console.log(err))
+  .then(metadata => docEngine.generateHTML(metadata))
+  //.then(metadata => console.log(metadata))
+  //.catch(err => console.log(err))
