@@ -22,10 +22,10 @@ ColdFusion code metrics based on static analysis
 ### Call graph estimation
 
 ### Components doc generation
-`[components] -> [cf metadata] -> [json] -> [md] -> [html]`
+`[components] -> [cf metadata] -> [json] -> [html]`
 
 ##### cf
 Extracts components metadata using `getComponentMetadata` function and converts it to json.
 
 ##### node
-Process a json component metadata file and generates MD or HTML (not defined yet).
+Process a json component metadata file and generates HTML using handlebars template engine.
