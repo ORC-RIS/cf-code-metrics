@@ -17,21 +17,24 @@
     <cfloop query="qFiles">
     
       <cfscript>
+        var relativePath = "";
         var packagePath = "";
         var currentPath = replace(directory & "\", strPath, "");
         currentPath = reReplace(currentPath, "[/\\]", "");
+        relativePath = currentPath;
         currentPath = reReplace(currentPath, "[/\\]", ".", "all");
 
 
         if(len(currentPath))
         {
             // "Components.AccessControl"
+            relativePath = relativePath & "/" & name; 
             packagePath = currentPath & "." & name; //ListAppend(currentPath, name ".");
         }
         else
         {
-
             // "AccessControl"
+            relativePath = name;
             packagePath = name;
         }
 
@@ -42,9 +45,17 @@
 
       <cftry>
 
+<!---
+        <cfdump var="#relativePath# </br></br>" />
+--->
 
-        <cfset ArrayAppend(response["components"], getComponentMetaData(cfcName)) />
-        <cfcatch></cfcatch>  
+        <cfset metadata = getComponentMetaData(cfcName) />
+        <cfset metadata["RELATIVE_PATH"] = relativePath />
+        <cfset ArrayAppend(response["components"], metadata) />
+        
+        <cfcatch>
+
+        </cfcatch>  
       </cftry>
 
     </cfloop>
