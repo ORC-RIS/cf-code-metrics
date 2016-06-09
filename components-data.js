@@ -3,6 +3,7 @@
     {
       "DISPLAYNAME": "Application",
       "PATH": "E:\\inetpub\\wwwroot\\Web_Applications\\paris\\Application.cfc",
+      "RELATIVE_PATH": "Application.cfc",
       "EXTENDS": {
         "PATH": "E:\\ColdFusion11\\cfusion\\wwwroot\\WEB-INF\\cftags\\component.cfc",
         "TYPE": "component",

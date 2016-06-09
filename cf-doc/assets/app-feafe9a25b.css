@@ -640,7 +640,7 @@ body.sidebar-closed .sidebar-toggle {
     margin: 0.5em 0;
 }
 .content-inner .docstring {
-    margin-bottom: 3.5em;
+    margin-bottom: 0.5em;
 }
 .content-inner .docstring h2, .content-inner .docstring h3, .content-inner .docstring h4, .content-inner .docstring h5 {
     font-weight: 800;

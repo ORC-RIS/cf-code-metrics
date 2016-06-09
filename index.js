@@ -56,7 +56,7 @@ docEngine.getMetadata()
   .then(mdFiles => generateHTML(mdFiles))
 */
 
-docEngine.getMetadata('./components-data.js')
+docEngine.getMetadata('./components-data-2.js')
   .then(metadata => docEngine.generateHTML(metadata))
   //.then(metadata => console.log(metadata))
   //.catch(err => console.log(err))
