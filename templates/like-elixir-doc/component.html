@@ -179,7 +179,7 @@
                 <i class="icon-link"></i>
               </a>
               <span class="signature">{{name}}({{#each parameters}}{{#if @last}}{{name}}{{else}}{{name}}, {{/if}}{{/each}})</span>
-              <a href="https://github.com/phoenixframework/phoenix/blob/v1.1.4/lib/phoenix/channel.ex#L296" class="view-source" rel="help" title="View Source">
+              <a href="https://github.com/ORC-RIS/paris/blob/master/{{../relative_path}}#L{{line_number}}" class="view-source" rel="help" title="View Source">
                 <i class="icon-code"></i>
               </a>
             </div>
@@ -204,12 +204,17 @@
               </div>
             </div>
 
+            {{#if stored_procedures}}
             <div class="specs">
-              <h4 class="specs-title">Stored procedures</h4>
+              <h4 class="specs-title">Stored procedures:</h4>
+
               <div class="specs-list">
-                <pre><code class="iex elixir">string :: {{name}}({{#each parameters}}{{#if @last}}{{type}} {{name}}{{else}}{{type}} {{name}}, {{/if}}{{/each}})</code></pre>
+                <pre><code class="iex elixir">
+{{#each stored_procedures}}{{this}}{{/each}}
+                </code></pre>
               </div>
             </div>
+            {{/if}}
             </br>
 
           </div>
