@@ -92,6 +92,75 @@ describe('CfmlParser', () => {
         }])
     })
 
+    it('should parse one call to writeLine with an EOL as two lines', () => {
+      var handler = new CfmlHandler()
+      var parser = new CfmlParser(handler)
+      parser.writeLine('<cfset var foo="bar" />\n<cfset var foo="bar" />')
+      parser.done()
+
+      handler.dom.should.be.deep.equal([
+        {
+          type: 'tag',
+          name:'cfset',
+          line: 1,
+          col: 0,
+          children: []
+        },
+        {
+          type: 'tag',
+          name:'cfset',
+          line: 2,
+          col: 0,
+          children: []
+        }])
+    })
+
+    it('should parse nested tags', () => {
+      var handler = new CfmlHandler()
+      var parser = new CfmlParser(handler)
+
+      var cfml =
+        `<cfcomponent name="foo">
+           <cffunction name="bar">
+           </cffunction>
+         </cfcomponent>`
+
+      parser.writeLine(cfml)
+      parser.done()
+
+      handler.dom.should.be.deep.equal([
+        {
+          type: 'tag',
+          name:'cfcomponent',
+          line: 1,
+          col: 0,
+          children: [
+            {
+              type: 'tag',
+              name:'cffunction',
+              line: 2,
+              col: 11,
+              children: []
+            }
+          ]
+        }])
+    })
+
+    it('should parse a string attribute', () => {
+      var handler = new CfmlHandler()
+      var parser = new CfmlParser(handler)
+
+      var cfml =
+        `<cfcomponent name="foo">
+         </cfcomponent>`
+
+      parser.writeLine(cfml)
+      parser.done()
+
+      var elem = handler.dom[0]
+      elem.should.have.property('attribs')
+      elem.attribs.should.have.property('name').and.equal('foo');
+    })
 
   })
 })
