@@ -36,5 +36,8 @@ node_modules
 .DS_Store
 
 # docs
+docs
 docs/md
 docs/html
+projects
+projects/paris

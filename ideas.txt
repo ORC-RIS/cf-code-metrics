@@ -1,0 +1,26 @@
+
+
+
+current coldfusion parser:
+
+getMetadata
+  for each cfc file in directory
+      ExtendComponentMetadata
+        AddFunctionsLineNumber
+        AddStoredProceduresCalls
+
+
+
+new js parser:
+
+getMetadata
+  for each cfc file in directory
+    for each function in component
+      ExtendComponentMetadata
+        AddFunctionsLineNumber
+        AddStoredProceduresCalls
+
+
+
+htmlparser2 with custom handler
+  cfml-handler

@@ -29,3 +29,39 @@ Extracts components metadata using `getComponentMetadata` function and converts 
 
 ##### node
 Process a json component metadata file and generates HTML using handlebars template engine.
+
+## project structure
+```.
+├── assets
+│   └── js
+│       ├── template-helpers
+│       └── templates
+├── cf-doc
+│   └── assets
+├── docs
+│   ├── html
+│   │   └── assets
+│   └── md
+├── lib : source code
+├── node_modules
+├── projects
+│   └── paris
+├── templates
+│   └── like-elixir-doc
+├── test
+│   ├── analyzer
+│   │   └── data
+│   │       ├── cfml-comments
+│   │       ├── circular-cfinclude
+│   │       ├── empty-dir
+│   │       ├── html-comments
+│   │       ├── ignore-non-supported-files
+│   │       ├── js-comments
+│   │       ├── simple-cfinclude
+│   │       └── subdirectories
+│   │           └── dirA
+│   │               └── dirAA
+│   └── util
+└── www
+    └── cf-doc
+```

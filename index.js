@@ -8,6 +8,7 @@ var analyzer = require("./lib/analyzer.js")
 var cytoscape = require("./lib/cytoscape-format.js")
 var vis = require("./lib/visjs-format.js")
 var docEngine = require("./lib/doc-engine.js")
+var inspect = require('eyes').inspector({maxLength: false})
 
 // promise config
 var Promise = require("bluebird")
@@ -56,7 +57,12 @@ docEngine.getMetadata()
   .then(mdFiles => generateHTML(mdFiles))
 */
 
-docEngine.getMetadata('./components-data-3.js')
-  .then(metadata => docEngine.generateHTML(metadata))
+analyzer
+  .parseXML('./test/data.xml')
+  //.then(content => console.log(content))
+
+
+//docEngine.getMetadata('./components-data-3.js')
+//  .then(metadata => docEngine.generateHTML(metadata))
   //.then(metadata => console.log(metadata))
   //.catch(err => console.log(err))
