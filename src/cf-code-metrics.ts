@@ -1,4 +1,7 @@
 var program = require('commander')
+import * as eze from './GenerateBulkCommand'
+
+//eee
 //var packageJson = require('./package.json');
 //packageJson.version
 
@@ -8,7 +11,7 @@ program
   .usage('<command> [options]')
   .option('-d, --debug', 'show debug info')
   
-  
+   
 // command: generate
 program
   .command('generate <source> <target>')
@@ -16,7 +19,8 @@ program
   .description('Generates documentation')
   .option('-i --internval <interval>', "The delay bla bla")
   .action((source, target) => {  
-    console.log('gen -s ' + source + ' -t ' + target)
+    eze.run(source, target)
+    console.log('2')
  })
 
 
@@ -24,7 +28,7 @@ program
 program
   .command('generate-bulk <source> <target>')
   .alias('genb')
-  .description('Generates documentation for a list of projects')
+  .description('Generates documentation for multiple projects')
   .option('-i --internval <interval>', "The delay bla bla")
   .action((source, target) => {  
     console.log('genb -s ' + source + ' -t ' + target)
