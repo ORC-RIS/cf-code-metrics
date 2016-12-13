@@ -1,7 +1,8 @@
-import * as fs from 'fs'
-import * as doc from './GenerateCommand'
+"use strict"
+var fs = require('fs')
+var doc = require('./GenerateCommand.js')
 
-export async function run (source: string, target: string) {
+async function run (source, target) {
   //console.log('gen -s ' + source + ' -t ' + target)
   
   // validate source directory
@@ -23,4 +24,3 @@ export async function run (source: string, target: string) {
   //return 'ok' 
  // return new Promise(); 
 }
-
