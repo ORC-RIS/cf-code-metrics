@@ -1,6 +1,10 @@
 "use strict"
-var fs = require('fs')
-var doc = require('./GenerateCommand.js')
+var Promise = require("bluebird")
+Promise.onPossiblyUnhandledRejection(error => {
+  throw error
+})
+const fs = Promise.promisifyAll(require('fs'))
+const doc = require('./GenerateCommand.js')
 
 exports.run = async function run(source, target) {
   
@@ -17,6 +21,8 @@ exports.run = async function run(source, target) {
   }
 
   // iterate each directory in source
-  
-  
+
+  var test = await fs.readdirAsync(source)
+  console.log('-----' + test)
+
 }
