@@ -83,20 +83,39 @@ async function parseDirectory(cfdoc) {
 
   // parse each file
   await Promise.all(files.map(async (file) => 
-    await parseFile(file)))
+    await parseFile(file, cfdoc)))
 
 }
  
 
 async function parseFile(file, cfdoc) {
 
-  const content = await fs.readFileAsync(file, 'utf8')
+  // read the file
+  const fileContent = await fs.readFileAsync(file, 'utf8')
+
+  // parse the file content
+  let dom = parser.parse(fileContent)
+
+  // calculate target path for this file
+  const filepath = path.normalize(file)
+  const partialPath = filepath.substr(cfdoc.env.source.length, filepath.length)
+  const targetPath = path.join(cfdoc.env.target, partialPath)
+  const target = path.parse(targetPath)
   
-  let r = parser.parse(content)
-  inspect(r)
+  // create target directory if it does not exists
+  if (!fs.existsSync(target.dir)) {
+    fs.mkdirSync(target.dir)
+  }
+
+  // write dom to temporary directory
+  await fs.writeFileAsync(targetPath, JSON.stringify(dom))
+
+  /*
+  inspect(file)
+  inspect(cfdoc.env.target)
+  inspect(filename)
+  */
 
   //var sps = searchStoredProcedures(cfmlTree)
   //resolve({file: file, sps: sps})
-  
-
 }
