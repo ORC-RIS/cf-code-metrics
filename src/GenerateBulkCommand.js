@@ -9,7 +9,7 @@ const readdirAsync = Promise.promisify(require('recursive-readdir-filter'))
 const inspect = require('eyes').inspector({maxLength: false})
 const path = require('path')
 const parser = require('./parser.js')
-
+const mkpath = Promise.promisify(require('mkpath'))
 
 exports.run = async function run(source, target, flags) {
   
@@ -99,14 +99,14 @@ async function parseFile(file, cfdoc) {
   // calculate target path for this file
   const filepath = path.normalize(file)
   const partialPath = filepath.substr(cfdoc.env.source.length, filepath.length)
-  const targetPath = path.join(cfdoc.env.target, partialPath)
+  const targetPath = path.join(cfdoc.env.target, '/tmp', partialPath)
   const target = path.parse(targetPath)
   
-  // create target directory if it does not exists
-  if (!fs.existsSync(target.dir)) {
-    fs.mkdirSync(target.dir)
-  }
+  inspect(target)
 
+  // create target directory if it does not exists
+  await mkpath(target.dir)
+  
   // write dom to temporary directory
   await fs.writeFileAsync(targetPath, JSON.stringify(dom))
 
