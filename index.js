@@ -18,8 +18,8 @@ program
     .alias('gen')
     .description('Generates documentation')
     .option('-i --internval <interval>', "The delay bla bla")
-    .action(function (source, target) {
-        //await genCommand.run(source, target)
+    .action((source, target, optional) => {
+        //genCommand.run(source, target, ...)
     })
 
 // command: generate bulk
@@ -27,9 +27,14 @@ program
     .command('generate-bulk <source> <target>')
     .alias('gen-bulk')
     .description('Generates documentation for multiple projects')
-    .option('-i --internval <interval>', "The delay bla bla")
-    .action(function (source, target) {    
-        genbulkCommand.run(source, target)
+    .option('-i --intermedia', "Keep json intermediate file in the target directory")
+    .action((source, target, optional) => {    
+        
+        const flags = {
+            intermediate: optional.intermediate
+        }
+
+        genbulkCommand.run(source, target, flags)
     })
 
 // process commands
