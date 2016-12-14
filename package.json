@@ -38,6 +38,7 @@
     "mkpath": "^1.0.0",
     "mocha": "^2.4.5",
     "recursive-readdir": "^2.0.0",
+    "recursive-readdir-filter": "0.0.3",
     "stringbuilder": "0.0.11",
     "xml2js": "^0.4.17"
   }

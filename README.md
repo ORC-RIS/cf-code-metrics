@@ -15,6 +15,11 @@ ColdFusion code metrics based on static analysis
 2. Define GitHub repository path and application URL
 3. Generate documentation:: `node cf-code-metrics`
 
+### command line for async/await support 
+```
+node --harmony-async-await index.js gen-bulk ./test-data/source/ ./test-data/target
+```
+
 ## Internals
 
 ### Includes dependencies calculation

@@ -19,7 +19,7 @@ program
     .description('Generates documentation')
     .option('-i --internval <interval>', "The delay bla bla")
     .action(function (source, target) {
-        genCommand.run(source, target)
+        //await genCommand.run(source, target)
     })
 
 // command: generate bulk

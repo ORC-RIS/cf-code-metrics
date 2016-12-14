@@ -5,6 +5,9 @@ Promise.onPossiblyUnhandledRejection(error => {
 })
 const fs = Promise.promisifyAll(require('fs'))
 const doc = require('./GenerateCommand.js')
+const readdirAsync = Promise.promisify(require('recursive-readdir-filter'))
+const inspect = require('eyes').inspector({maxLength: false})
+
 
 exports.run = async function run(source, target) {
   
@@ -20,9 +23,28 @@ exports.run = async function run(source, target) {
     process.exit(1)
   }
 
-  // iterate each directory in source
+  // recursive search to find all the cf-doc.json files 
+  let projects = await readdirAsync(source, { filterFile: (stats) => { return stats.name === 'cf-doc.json' } })
 
-  var test = await fs.readdirAsync(source)
-  console.log('-----' + test)
+  // process each project in parallel
+  await Promise.all(projects.map(async (project) => await processProject(project)))
+}
+
+async function processProject(project) {
+  
+  // read project config file
+  const content = await fs.readFileAsync(project, 'utf8')
+  console.log(content)
+
+  // get project path
+  const path = 
+
+  // parse files
+
+  // generate json intermediate file
+
+  // calculate metrics
+
+  // generate documentation
 
 }
