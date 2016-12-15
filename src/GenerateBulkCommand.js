@@ -58,19 +58,7 @@ async function processProject(source, target, project, flags) {
   // parse files: generates a json file for each coldfusion file
   await parseDirectory(cfdoc)
 
-  // generate json intermediate file
-
-
-  // calculate metrics
-
-
-  // generate documentation
-
-
-  // delete intermediate file?
-  if (!cfdoc.env.flags.intermediate) {
-    //TODO: implement delete
-  }
+  
 
 }
 
@@ -87,7 +75,7 @@ async function parseDirectory(cfdoc) {
 
 }
  
-
+//TODO: rename to processFile
 async function parseFile(file, cfdoc) {
 
   // read the file
@@ -101,8 +89,6 @@ async function parseFile(file, cfdoc) {
   const partialPath = filepath.substr(cfdoc.env.source.length, filepath.length)
   const targetPath = path.join(cfdoc.env.target, '/tmp', partialPath)
   const target = path.parse(targetPath)
-  
-  inspect(target)
 
   // create target directory if it does not exists
   await mkpath(target.dir)
@@ -110,12 +96,18 @@ async function parseFile(file, cfdoc) {
   // write dom to temporary directory
   await fs.writeFileAsync(targetPath, JSON.stringify(dom))
 
-  /*
-  inspect(file)
-  inspect(cfdoc.env.target)
-  inspect(filename)
-  */
+  // generate json intermediate file
 
-  //var sps = searchStoredProcedures(cfmlTree)
-  //resolve({file: file, sps: sps})
+
+  // calculate metrics
+
+
+  // generate documentation
+
+
+  // delete intermediate file?
+  if (!cfdoc.env.flags.intermediate) {
+    //TODO: implement delete
+  }
+
 }
