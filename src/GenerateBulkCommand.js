@@ -55,10 +55,11 @@ async function processProject(source, target, project, flags) {
     flags: flags
   }
 
-  // parse files: generates a json file for each coldfusion file
+  // generates a json file for each coldfusion file in a tmp directory
   await parseDirectory(cfdoc)
 
-  // generate json intermediate file
+  // analize intermediate files to extract components, functions and stored procedures calls
+  await generate(cfdoc)
 
 
   // calculate metrics
@@ -74,7 +75,9 @@ async function processProject(source, target, project, flags) {
 
 }
 
-
+// this function iterates cfm and cfc files for a given directory,
+// parses each file and generates a json intermediate file that 
+// represents a syntax tree (AST)
 async function parseDirectory(cfdoc) {
 
   // read only cfm and cfc files
@@ -82,19 +85,22 @@ async function parseDirectory(cfdoc) {
   let files = await readdirAsync(cfdoc.env.source, { filterFile: (stats) => { return stats.name.match(/\.cfm$/) || stats.name.match(/\.cfc$/) } })
 
   // parse each file
-  await Promise.all(files.map(async (file) => 
-    await parseFile(file, cfdoc)))
+  await Promise.all(files.map(async (file) => {
+      
+      await parseFile(file, cfdoc)
+
+  }))
 
 }
  
-
+// generates a json intermediate file that represents a syntax tree (AST)
 async function parseFile(file, cfdoc) {
 
   // read the file
   const fileContent = await fs.readFileAsync(file, 'utf8')
 
   // parse the file content
-  let dom = parser.parse(fileContent)
+  let tree = parser.parse(fileContent)
 
   // calculate target path for this file
   const filepath = path.normalize(file)
@@ -102,20 +108,193 @@ async function parseFile(file, cfdoc) {
   const targetPath = path.join(cfdoc.env.target, '/tmp', partialPath)
   const target = path.parse(targetPath)
   
-  inspect(target)
-
   // create target directory if it does not exists
   await mkpath(target.dir)
   
-  // write dom to temporary directory
-  await fs.writeFileAsync(targetPath, JSON.stringify(dom))
+  // write tree to temporary directory
+  await fs.writeFileAsync(targetPath, JSON.stringify(tree, null, 2))
+
+}
+
+
+// look into tmp directory, analize trees to extract components, functions and stored procedures calls
+async function generate(cfdoc) {
+
+  // read all the components in tmp directory
+  const targetTemp = path.join(cfdoc.env.target, '/tmp')
+  let components = await readdirAsync(targetTemp, { filterFile: (stats) => { return stats.name.match(/\.cfc$/) } })
+
+  // parse each component tree
+  await Promise.all(components.map(async (file) => {
+      await generateComponentFile(file, cfdoc)
+  }))
+
+}
+
+
+async function generateComponentFile(file, cfdoc) {
+
+  // read the file tree
+  const fileContent = await fs.readFileAsync(file, 'utf8')
+  const tree = JSON.parse(fileContent)
+
+  let data = extractDataFromComponentTree(tree[0])
+
+  // calculate file path
+  let treePath = path.parse(file)
+  let dataPath = path.join(treePath.root, treePath.dir, treePath.name + '-data.json')
+
+  // write data into a temporary directory
+  await fs.writeFileAsync(dataPath, JSON.stringify(data, null, 2))
+
 
   /*
-  inspect(file)
-  inspect(cfdoc.env.target)
-  inspect(filename)
-  */
+  Each file is a component  
+  {
+    type: [page|component],
 
-  //var sps = searchStoredProcedures(cfmlTree)
-  //resolve({file: file, sps: sps})
+
+  }
+  */
+  
 }
+
+//------------------------------------------------------------------------
+// move into a new module
+
+function traversalSearch(obj, key, value) {
+  var result = []
+  
+  // iterate arrays
+  if(obj instanceof Array) {
+      for(var i = 0; i < obj.length; i++) {
+          result = result.concat(traversalSearch(obj[i], key, value))
+      }
+  }
+  else
+  {
+      // iterate object properties
+      for(var prop in obj) {
+
+          if(prop == key) {
+          
+              if(obj[prop] == value) {
+                // found!
+                result.push(obj)
+                break
+              }
+          }
+          
+          // continue with nested object./array iteration
+          if(obj[prop] instanceof Object || obj[prop] instanceof Array) {
+              result = result.concat(traversalSearch(obj[prop], key, value))
+          }
+      }
+  }
+  
+  return result
+}
+
+
+function extractDataFromComponentTree(tree) {
+
+  // component definition
+  let component = tree.attribs
+  component.line = tree.line
+  component.col = tree.col
+
+  // get functions
+  component.functions = extractFunctions(tree)
+
+  return component
+}
+
+
+function extractFunctions(tree) {
+  let result = []
+
+  // searh for any functions in tree
+  let functions = traversalSearch(tree, 'name', 'cffunction')
+
+  for (let f; f = functions.pop();) {
+    
+    // function definition
+    let item = f.attribs
+    item.line = f.line
+    item.col = f.col
+    
+    // function arguments
+    item.args = extractFunctionsArguments(f)
+
+    // sps invocations
+    item.procedures = extractStoredProcedures(f)
+
+    result.push(item)
+  }  
+
+  return result
+}
+
+
+function extractFunctionsArguments(tree) {
+  let result = []
+
+  // get function's arguments
+  let args = traversalSearch(tree, 'name', 'cfargument')
+
+  for (let a; a = args.pop();) {
+
+    // argument definition
+    let item = a.attribs
+    item.line = a.line
+    item.col = a.col
+    
+    result.push(item)
+  }
+
+  return result
+}
+
+
+function extractStoredProcedures(tree) {
+  let result = []
+
+  // get sp's
+  let sps = traversalSearch(tree, 'name', 'cfstoredproc')
+
+  for (let sp; sp = sps.pop();) {
+    
+    // stored procedure invocation definition
+    let item = sp.attribs
+    item.line = sp.line
+    item.col = sp.col
+
+    // sp parameters
+    item.params = extractStoredProceduresParameters(sp)
+    
+    result.push(item)
+  }
+
+  return result
+}
+
+
+function extractStoredProceduresParameters(tree) {
+  let result = []
+
+  // get sp parameters
+  let params = traversalSearch(tree, 'name', 'cfprocparam')
+
+  for (let p; p = params.pop();) {
+    
+    // sp param definition
+    let item = p.attribs
+    item.line = p.line
+    item.col = p.col
+    
+    result.push(item)
+  }
+
+  return result
+}
+//------------------------------------------------------------------------
