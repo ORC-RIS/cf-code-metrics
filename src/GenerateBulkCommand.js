@@ -5,6 +5,7 @@ Promise.onPossiblyUnhandledRejection(error => {
 })
 const fs = Promise.promisifyAll(require('fs'))
 const doc = require('./GenerateCommand.js')
+const extractor = require('./extractor.js')
 const readdirAsync = Promise.promisify(require('recursive-readdir-filter'))
 const inspect = require('eyes').inspector({maxLength: false})
 const path = require('path')
@@ -120,13 +121,17 @@ async function parseFile(file, cfdoc) {
 // look into tmp directory, analize trees to extract components, functions and stored procedures calls
 async function generate(cfdoc) {
 
-  // read all the components in tmp directory
+  // read all the files in tmp directory
   const targetTemp = path.join(cfdoc.env.target, '/tmp')
-  let components = await readdirAsync(targetTemp, { filterFile: (stats) => { return stats.name.match(/\.cfc$/) } })
+  let components = await readdirAsync(targetTemp, { filterFile: (stats) => { return stats.name.match(/\.cf[c,m]$/) } })
 
   // parse each component tree
   await Promise.all(components.map(async (file) => {
-      await generateComponentFile(file, cfdoc)
+      
+      if (file.endsWith('cfm'))
+        await generatePageFile(file, cfdoc)
+      else 
+        await generateComponentFile(file, cfdoc)
   }))
 
 }
@@ -138,7 +143,7 @@ async function generateComponentFile(file, cfdoc) {
   const fileContent = await fs.readFileAsync(file, 'utf8')
   const tree = JSON.parse(fileContent)
 
-  let data = extractDataFromComponentTree(tree[0])
+  let data = extractor.extractDataFromComponentTree(tree[0])
 
   // calculate file path
   let treePath = path.parse(file)
@@ -159,142 +164,31 @@ async function generateComponentFile(file, cfdoc) {
   
 }
 
-//------------------------------------------------------------------------
-// move into a new module
+async function generatePageFile(file, cfdoc) {
 
-function traversalSearch(obj, key, value) {
-  var result = []
-  
-  // iterate arrays
-  if(obj instanceof Array) {
-      for(var i = 0; i < obj.length; i++) {
-          result = result.concat(traversalSearch(obj[i], key, value))
-      }
-  }
-  else
+  // read the file tree
+  const fileContent = await fs.readFileAsync(file, 'utf8')
+  const tree = JSON.parse(fileContent)
+
+  let data = extractor.extractDataFromPageTree(tree[0])
+
+  // calculate file path
+  let treePath = path.parse(file)
+  let dataPath = path.join(treePath.root, treePath.dir, treePath.name + '-data.json')
+
+  // write data into a temporary directory
+  await fs.writeFileAsync(dataPath, JSON.stringify(data, null, 2))
+
+
+  /*
+  Each file is a component  
   {
-      // iterate object properties
-      for(var prop in obj) {
+    type: [page|component],
 
-          if(prop == key) {
-          
-              if(obj[prop] == value) {
-                // found!
-                result.push(obj)
-                break
-              }
-          }
-          
-          // continue with nested object./array iteration
-          if(obj[prop] instanceof Object || obj[prop] instanceof Array) {
-              result = result.concat(traversalSearch(obj[prop], key, value))
-          }
-      }
+
   }
+  */
   
-  return result
 }
 
 
-function extractDataFromComponentTree(tree) {
-
-  // component definition
-  let component = tree.attribs
-  component.line = tree.line
-  component.col = tree.col
-
-  // get functions
-  component.functions = extractFunctions(tree)
-
-  return component
-}
-
-
-function extractFunctions(tree) {
-  let result = []
-
-  // searh for any functions in tree
-  let functions = traversalSearch(tree, 'name', 'cffunction')
-
-  for (let f; f = functions.pop();) {
-    
-    // function definition
-    let item = f.attribs
-    item.line = f.line
-    item.col = f.col
-    
-    // function arguments
-    item.args = extractFunctionsArguments(f)
-
-    // sps invocations
-    item.procedures = extractStoredProcedures(f)
-
-    result.push(item)
-  }  
-
-  return result
-}
-
-
-function extractFunctionsArguments(tree) {
-  let result = []
-
-  // get function's arguments
-  let args = traversalSearch(tree, 'name', 'cfargument')
-
-  for (let a; a = args.pop();) {
-
-    // argument definition
-    let item = a.attribs
-    item.line = a.line
-    item.col = a.col
-    
-    result.push(item)
-  }
-
-  return result
-}
-
-
-function extractStoredProcedures(tree) {
-  let result = []
-
-  // get sp's
-  let sps = traversalSearch(tree, 'name', 'cfstoredproc')
-
-  for (let sp; sp = sps.pop();) {
-    
-    // stored procedure invocation definition
-    let item = sp.attribs
-    item.line = sp.line
-    item.col = sp.col
-
-    // sp parameters
-    item.params = extractStoredProceduresParameters(sp)
-    
-    result.push(item)
-  }
-
-  return result
-}
-
-
-function extractStoredProceduresParameters(tree) {
-  let result = []
-
-  // get sp parameters
-  let params = traversalSearch(tree, 'name', 'cfprocparam')
-
-  for (let p; p = params.pop();) {
-    
-    // sp param definition
-    let item = p.attribs
-    item.line = p.line
-    item.col = p.col
-    
-    result.push(item)
-  }
-
-  return result
-}
-//------------------------------------------------------------------------
