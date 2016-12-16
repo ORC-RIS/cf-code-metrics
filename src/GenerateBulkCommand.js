@@ -143,7 +143,14 @@ async function generateComponentFile(file, cfdoc) {
   const fileContent = await fs.readFileAsync(file, 'utf8')
   const tree = JSON.parse(fileContent)
 
-  let data = extractor.extractDataFromComponentTree(tree[0])
+  let data = null
+
+  try {
+    data = extractor.extractDataFromComponentTree(tree)
+  } catch (error) {
+    inspect(file)
+    inspect(error)
+  }
 
   // calculate file path
   let treePath = path.parse(file)
@@ -170,7 +177,13 @@ async function generatePageFile(file, cfdoc) {
   const fileContent = await fs.readFileAsync(file, 'utf8')
   const tree = JSON.parse(fileContent)
 
-  let data = extractor.extractDataFromPageTree(tree)
+  let data = null
+  
+  try {
+    data = extractor.extractDataFromPageTree(tree)  
+  } catch (error) {
+    inspect(error)
+  }
 
   // calculate file path
   let treePath = path.parse(file)

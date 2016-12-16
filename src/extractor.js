@@ -51,12 +51,13 @@ exports.extractDataFromPageTree = function (tree) {
 exports.extractDataFromComponentTree = function(tree) {
 
   // component definition
-  let component = tree.attribs
-  component.line = tree.line
-  component.col = tree.col
+  let x = traversalSearch(tree, 'name', 'cfcomponent').pop()
+  let component = x.attribs
+  component.line = x.line
+  component.col = x.col
 
   // get functions
-  component.functions = extractFunctions(tree)
+  component.functions = extractFunctions(x)
 
   return component
 }
@@ -93,17 +94,19 @@ function extractFunctions(tree) {
     
     // function definition
     let item = f.attribs
-    item.line = f.line
-    item.col = f.col
-    
-    // function arguments
-    item.args = extractTag(f, 'cfargument')
+    if (item) {
+      item.line = f.line
+      item.col = f.col
+      
+      // function arguments
+      item.args = extractTag(f, 'cfargument')
 
-    // sps invocations
-    item.procedures = extractStoredProcedures(f)
+      // sps invocations
+      item.procedures = extractStoredProcedures(f)
 
-    result.push(item)
-  }  
+      result.push(item)
+    }    
+  }
 
   return result
 }
@@ -119,13 +122,15 @@ function extractStoredProcedures(tree) {
     
     // stored procedure invocation definition
     let item = sp.attribs
-    item.line = sp.line
-    item.col = sp.col
+    if (item) {
+      item.line = sp.line
+      item.col = sp.col
 
-    // sp parameters
-    item.params = extractTag(sp, 'cfprocparam')
-    
-    result.push(item)
+      // sp parameters
+      item.params = extractTag(sp, 'cfprocparam')
+      
+      result.push(item)
+    }
   }
 
   return result
@@ -143,10 +148,11 @@ function extractTag(tree, tag) {
     
     // include definition
     let item = x.attribs
-    item.line = x.line
-    item.col = x.col
-
-    result.push(item)
+    if (item) {
+      item.line = x.line
+      item.col = x.col
+      result.push(item)
+    }    
   }
 
   return result
