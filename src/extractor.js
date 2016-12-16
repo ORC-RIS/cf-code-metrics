@@ -1,4 +1,5 @@
-
+"use strict"
+const inspect = require('eyes').inspector({maxLength: false})
 
 function traversalSearch(obj, key, value) {
   var result = []
@@ -14,8 +15,7 @@ function traversalSearch(obj, key, value) {
       // iterate object properties
       for(var prop in obj) {
 
-          if(prop == key) {
-          
+          if(prop == key) {          
               if(obj[prop] == value) {
                 // found!
                 result.push(obj)
@@ -37,7 +37,10 @@ exports.extractDataFromPageTree = function (tree) {
 
   let page = {}
 
-  page.includes = extractIncludes(tree)
+  page.includes = extractTag(tree, 'cfinclude')
+  page.functions = extractFunctions(tree)
+  page.procedures = extractStoredProcedures(tree)
+  page.queries = extractQueries(tree)
 
   return page
 }
@@ -59,6 +62,27 @@ exports.extractDataFromComponentTree = function(tree) {
 }
 
 
+// private functions
+
+function extractQueries(tree) {
+  let result = []
+  
+  let queries = traversalSearch(tree, 'name', 'cfquery')
+  
+  for (let q; q = queries.pop();) {
+    let item = q.attribs
+    item.text = extractText(q)    
+      
+    result.push(item)
+  }
+
+  return result
+  
+  //inspect(traversalSearch(tree, 'name', 'cfquery'))
+
+  //return extractTag(tree, 'cfquery')
+}
+
 function extractFunctions(tree) {
   let result = []
 
@@ -73,33 +97,13 @@ function extractFunctions(tree) {
     item.col = f.col
     
     // function arguments
-    item.args = extractFunctionsArguments(f)
+    item.args = extractTag(f, 'cfargument')
 
     // sps invocations
     item.procedures = extractStoredProcedures(f)
 
     result.push(item)
   }  
-
-  return result
-}
-
-
-function extractFunctionsArguments(tree) {
-  let result = []
-
-  // get function's arguments
-  let args = traversalSearch(tree, 'name', 'cfargument')
-
-  for (let a; a = args.pop();) {
-
-    // argument definition
-    let item = a.attribs
-    item.line = a.line
-    item.col = a.col
-    
-    result.push(item)
-  }
 
   return result
 }
@@ -119,27 +123,7 @@ function extractStoredProcedures(tree) {
     item.col = sp.col
 
     // sp parameters
-    item.params = extractStoredProceduresParameters(sp)
-    
-    result.push(item)
-  }
-
-  return result
-}
-
-
-function extractStoredProceduresParameters(tree) {
-  let result = []
-
-  // get sp parameters
-  let params = traversalSearch(tree, 'name', 'cfprocparam')
-
-  for (let p; p = params.pop();) {
-    
-    // sp param definition
-    let item = p.attribs
-    item.line = p.line
-    item.col = p.col
+    item.params = extractTag(sp, 'cfprocparam')
     
     result.push(item)
   }
@@ -150,29 +134,9 @@ function extractStoredProceduresParameters(tree) {
 //----------------------------------------------------
 // page data extraction
 
-function extractIncludes(tree) {
-  let result = []
-
-  // searh for any include in tree
-  let includes = traversalSearch(tree, 'name', 'cfinclude')
-
-  for (let i; i = includes.pop();) {
-    
-    // include definition
-    let item = i.attribs
-    item.line = i.line
-    item.col = i.col
-
-    result.push(item)
-  }
-
-  return result
-}
-
 function extractTag(tree, tag) {
   let result = []
 
-  // searh for any include in tree
   let tagList = traversalSearch(tree, 'name', tag)
 
   for (let x; x = tagList.pop();) {
@@ -186,4 +150,14 @@ function extractTag(tree, tag) {
   }
 
   return result
+}
+
+function extractText(tag) {
+
+  return traversalSearch(tag, 'type', 'text')
+    .map(x => x.data)
+    .reduce((a, b) => { 
+      return a + b
+    })
+    
 }

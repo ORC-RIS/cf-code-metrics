@@ -170,7 +170,7 @@ async function generatePageFile(file, cfdoc) {
   const fileContent = await fs.readFileAsync(file, 'utf8')
   const tree = JSON.parse(fileContent)
 
-  let data = extractor.extractDataFromPageTree(tree[0])
+  let data = extractor.extractDataFromPageTree(tree)
 
   // calculate file path
   let treePath = path.parse(file)
