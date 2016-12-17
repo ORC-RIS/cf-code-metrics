@@ -4,7 +4,7 @@ Promise.onPossiblyUnhandledRejection(error => {
   throw error
 })
 const fs = Promise.promisifyAll(require('fs'))
-const doc = require('./GenerateCommand.js')
+const doc = require('./doc.js')
 const extractor = require('./extractor.js')
 const readdirAsync = Promise.promisify(require('recursive-readdir-filter'))
 const inspect = require('eyes').inspector({maxLength: false})
@@ -12,7 +12,8 @@ const path = require('path')
 const parser = require('./parser.js')
 const mkpath = Promise.promisify(require('mkpath'))
 
-exports.run = async function run(source, target, flags) {
+
+exports.run = async function(source, target, flags) {
   
   // validate source directory
   if (!fs.existsSync(source)) {
@@ -60,14 +61,13 @@ async function processProject(source, target, project, flags) {
   await parseDirectory(cfdoc)
 
   // analize intermediate files to extract components, functions and stored procedures calls
-  await generate(cfdoc)
-
+  await generateIntermediateFiles(cfdoc)
 
   // calculate metrics
 
 
   // generate documentation
-
+  await generateDocumentation(cfdoc)
 
   // delete intermediate file?
   if (!cfdoc.env.flags.intermediate) {
@@ -119,7 +119,7 @@ async function parseFile(file, cfdoc) {
 
 
 // look into tmp directory, analize trees to extract components, functions and stored procedures calls
-async function generate(cfdoc) {
+async function generateIntermediateFiles(cfdoc) {
 
   // read all the files in tmp directory
   const targetTemp = path.join(cfdoc.env.target, '/tmp')
@@ -147,6 +147,10 @@ async function generateComponentFile(file, cfdoc) {
 
   try {
     data = extractor.extractDataFromComponentTree(tree)
+    if (data) {
+      data.file = file
+      data.type = 'component'
+    }
   } catch (error) {
     inspect(file)
     inspect(error)
@@ -158,16 +162,6 @@ async function generateComponentFile(file, cfdoc) {
 
   // write data into a temporary directory
   await fs.writeFileAsync(dataPath, JSON.stringify(data, null, 2))
-
-
-  /*
-  Each file is a component  
-  {
-    type: [page|component],
-
-
-  }
-  */
   
 }
 
@@ -181,6 +175,10 @@ async function generatePageFile(file, cfdoc) {
   
   try {
     data = extractor.extractDataFromPageTree(tree)  
+    if (data) {
+      data.file = file
+      data.type = 'page'
+    }
   } catch (error) {
     inspect(error)
   }
@@ -191,17 +189,21 @@ async function generatePageFile(file, cfdoc) {
 
   // write data into a temporary directory
   await fs.writeFileAsync(dataPath, JSON.stringify(data, null, 2))
-
-
-  /*
-  Each file is a component  
-  {
-    type: [page|component],
-
-
-  }
-  */
   
 }
+
+async function generateDocumentation(cfdoc) {
+  
+  try {
+    const targetTemp = path.join(cfdoc.env.target, '/tmp')
+    doc.generate(targetTemp, cfdoc)  
+  } catch (error) {
+    inspect(error)
+  }
+  
+}
+
+
+//-------------------------------
 
 

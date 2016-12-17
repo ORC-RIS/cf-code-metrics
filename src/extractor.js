@@ -52,14 +52,17 @@ exports.extractDataFromComponentTree = function(tree) {
 
   // component definition
   let x = traversalSearch(tree, 'name', 'cfcomponent').pop()
-  let component = x.attribs
-  component.line = x.line
-  component.col = x.col
+  
+  if (x) {
+    let component = x.attribs
+    component.line = x.line
+    component.col = x.col
 
-  // get functions
-  component.functions = extractFunctions(x)
+    // get functions
+    component.functions = extractFunctions(x)
 
-  return component
+    return component
+  }  
 }
 
 
