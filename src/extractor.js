@@ -16,7 +16,7 @@ function traversalSearch(obj, key, value) {
       for(var prop in obj) {
 
           if(prop == key) {          
-              if(obj[prop] == value) {
+              if ((value === undefined) || (obj[prop] == value)) {                
                 // found!
                 result.push(obj)
                 break
@@ -32,6 +32,7 @@ function traversalSearch(obj, key, value) {
   
   return result
 }
+
 
 exports.extractDataFromPageTree = function (tree) {
 
@@ -60,6 +61,9 @@ exports.extractDataFromComponentTree = function(tree) {
 
     // get functions
     component.functions = extractFunctions(x)
+
+    // get datasources
+    component.datasources = extractDatasources(tree)
 
     return component
   }  
@@ -138,6 +142,24 @@ function extractStoredProcedures(tree) {
 
   return result
 }
+
+
+function extractDatasources(tree) {
+
+  // get datasources
+  let dts = traversalSearch(tree, 'datasource')
+    .map(x => x.datasource)
+    .filter(( item, index, inputArray ) => {
+      // remove duplicates
+      return inputArray.indexOf(item) == index
+    })
+    .map(x => {
+      return x.replace("#VARIABLES.", '').replace('#', '')
+    })
+
+  return dts
+}
+  
 
 //----------------------------------------------------
 // page data extraction
