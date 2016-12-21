@@ -60,7 +60,7 @@ async function processProject(source, target, project, flags) {
   // generates a json file for each coldfusion file in a tmp directory
   await parseDirectory(cfdoc)
 
-  // analize intermediate files to extract components, functions and stored procedures calls
+  // analize intermediate files to extract components, functions and stored procedures calls (-data.json)
   await generateIntermediateFiles(cfdoc)
 
   // calculate metrics
@@ -129,7 +129,7 @@ async function generateIntermediateFiles(cfdoc) {
   await Promise.all(components.map(async (file) => {
       
       if (file.endsWith('cfm'))
-        await generatePageFile(file, cfdoc)
+        var asdasd = 1 //await generatePageFile(file, cfdoc)
       else 
         await generateComponentFile(file, cfdoc)
   }))
@@ -158,7 +158,7 @@ async function generateComponentFile(file, cfdoc) {
 
   // calculate file path
   let treePath = path.parse(file)
-  let dataPath = path.join(treePath.root, treePath.dir, treePath.name + '-data.json')
+  let dataPath = path.join(treePath.root, treePath.dir, treePath.base + '-data.json')
 
   // write data into a temporary directory
   await fs.writeFileAsync(dataPath, JSON.stringify(data, null, 2))
@@ -185,7 +185,7 @@ async function generatePageFile(file, cfdoc) {
 
   // calculate file path
   let treePath = path.parse(file)
-  let dataPath = path.join(treePath.root, treePath.dir, treePath.name + '-data.json')
+  let dataPath = path.join(treePath.root, treePath.dir, treePath.base + '-data.json')
 
   // write data into a temporary directory
   await fs.writeFileAsync(dataPath, JSON.stringify(data, null, 2))
@@ -195,8 +195,7 @@ async function generatePageFile(file, cfdoc) {
 async function generateDocumentation(cfdoc) {
   
   try {
-    const targetTemp = path.join(cfdoc.env.target, '/tmp')
-    doc.generate(targetTemp, cfdoc)  
+    doc.generate(cfdoc)  
   } catch (error) {
     inspect(error)
   }

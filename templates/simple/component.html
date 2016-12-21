@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>PARIS doc</title>
+</head>
+<body>
+
+<a href="https://github.com/ORC-RIS/paris/blob/master/{{relative_path}}" title="View Source" class="view-source" rel="help">
+  <h1>{{displayname}}</h1>
+</a>
+<h3>{{hint}}</h3>
+
+<ul>
+{{#each functions}}
+  <li>
+    <a href="#{{name}}/{{@index}}">{{name}}({{#each args}}{{#if @last}}{{name}}{{else}}{{name}}, {{/if}}{{/each}})</a>
+    <p>{{hint}}</p>
+  </li>
+{{/each}}
+</ul>
+
+</body>
+</html>
