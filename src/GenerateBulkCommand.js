@@ -11,7 +11,8 @@ const inspect = require('eyes').inspector({maxLength: false})
 const path = require('path')
 const parser = require('./parser.js')
 const mkpath = Promise.promisify(require('mkpath'))
-
+//const jinq = require('jinq')
+require('linqjs')
 
 exports.run = async function(source, target, flags) {
   
@@ -60,14 +61,14 @@ async function processProject(source, target, project, flags) {
   // generates a json file for each coldfusion file in a tmp directory
   await parseDirectory(cfdoc)
 
-  // analize intermediate files to extract components, functions and stored procedures calls (-data.json)
-  await generateIntermediateFiles(cfdoc)
+  // analize intermediate files to extract components, functions and stored procedures calls by file (-data.json)
+  let data = await generateIntermediateFiles(cfdoc)
 
   // calculate metrics
-
+  await calculateMetrics(data)
 
   // generate documentation
-  await generateDocumentation(cfdoc)
+  await generateDocumentation(cfdoc, data)
 
   // delete intermediate file?
   if (!cfdoc.env.flags.intermediate) {
@@ -123,16 +124,20 @@ async function generateIntermediateFiles(cfdoc) {
 
   // read all the files in tmp directory
   const targetTemp = path.join(cfdoc.env.target, '/tmp')
-  let components = await readdirAsync(targetTemp, { filterFile: (stats) => { return stats.name.match(/\.cf[c,m]$/) } })
+  let componentFiles = await readdirAsync(targetTemp, { filterFile: stats => { return stats.name.match(/\.cf[c,m]$/) } })
 
   // parse each component tree
-  await Promise.all(components.map(async (file) => {
+  let components = await Promise.all(componentFiles.map(async (file) => {
       
       if (file.endsWith('cfm'))
-        var asdasd = 1 //await generatePageFile(file, cfdoc)
+        return null //await generatePageFile(file, cfdoc)
       else 
-        await generateComponentFile(file, cfdoc)
+        return await generateComponentFile(file, cfdoc)
   }))
+
+  return {
+    "components": components
+  }
 
 }
 
@@ -162,7 +167,8 @@ async function generateComponentFile(file, cfdoc) {
 
   // write data into a temporary directory
   await fs.writeFileAsync(dataPath, JSON.stringify(data, null, 2))
-  
+
+  return data
 }
 
 async function generatePageFile(file, cfdoc) {
@@ -192,7 +198,7 @@ async function generatePageFile(file, cfdoc) {
   
 }
 
-async function generateDocumentation(cfdoc) {
+async function generateDocumentation(cfdoc, data) {
   
   try {
     doc.generate(cfdoc)  
@@ -202,7 +208,51 @@ async function generateDocumentation(cfdoc) {
   
 }
 
+async function calculateMetrics(data) {
 
-//-------------------------------
+  // add db object to data
+  data.db = {
+    "sps": [],
+    "queries": []
+  }
+  
+  // calculate stored procedures and queries usage
+  //let sps = extractor.search(data.components, 'procedures')
+    
+    /*
+    let q = new jinq()
+      .from(data.components)
+      .select( x => { return { 
+        "name": x
+      }})
+      */
+
+    //let q = data.components.selectMany( (x) => { return "eze"} )
+        
+    var doubled = data.components.select((t) => { 
+      if (t)
+        return t.line
+
+    } );  
 
 
+
+    inspect(doubled)
+
+
+/*
+    .map(x => x.procedures)
+    .reduce((a, b) => { 
+      return a.concat(b)
+    })
+    */
+
+  //inspect(sps)
+
+  // calculate files dependencies
+
+  // calculate functions usage
+
+
+  //inspect(data.db)
+}

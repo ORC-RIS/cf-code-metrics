@@ -33,7 +33,7 @@ function traversalSearch(obj, key, value) {
   return result
 }
 
-
+exports.search = traversalSearch
 exports.extractDataFromPageTree = function (tree) {
 
   let page = {}
