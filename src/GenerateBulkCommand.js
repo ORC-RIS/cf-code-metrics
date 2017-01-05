@@ -11,8 +11,10 @@ const inspect = require('eyes').inspector({maxLength: false})
 const path = require('path')
 const parser = require('./parser.js')
 const mkpath = Promise.promisify(require('mkpath'))
+const clone = require('clone')
 //const jinq = require('jinq')
-require('linqjs')
+//require('linqjs')
+//const _ = require('lodash');
 
 exports.run = async function(source, target, flags) {
   
@@ -122,21 +124,28 @@ async function parseFile(file, cfdoc) {
 // look into tmp directory, analize trees to extract components, functions and stored procedures calls
 async function generateIntermediateFiles(cfdoc) {
 
-  // read all the files in tmp directory
   const targetTemp = path.join(cfdoc.env.target, '/tmp')
-  let componentFiles = await readdirAsync(targetTemp, { filterFile: stats => { return stats.name.match(/\.cf[c,m]$/) } })
+  
+  // read all component (cfc) files in tmp directory  
+  let componentFiles = await readdirAsync(targetTemp, { filterFile: stats => { return stats.name.match(/\.cfc$/) } })
 
   // parse each component tree
   let components = await Promise.all(componentFiles.map(async (file) => {
-      
-      if (file.endsWith('cfm'))
-        return null //await generatePageFile(file, cfdoc)
-      else 
         return await generateComponentFile(file, cfdoc)
   }))
 
+
+  // read all page (cfm) files in tmp directory  
+  let pageFiles = await readdirAsync(targetTemp, { filterFile: stats => { return stats.name.match(/\.cfm$/) } })
+
+  // parse each page tree
+  let pages = await Promise.all(pageFiles.map(async (file) => {
+      return await generatePageFile(file, cfdoc)
+  }))
+
   return {
-    "components": components
+    "components": components,
+    "pages": pages
   }
 
 }
@@ -196,12 +205,18 @@ async function generatePageFile(file, cfdoc) {
   // write data into a temporary directory
   await fs.writeFileAsync(dataPath, JSON.stringify(data, null, 2))
   
+  return data
 }
 
 async function generateDocumentation(cfdoc, data) {
   
   try {
-    doc.generate(cfdoc)  
+
+    await doc.generate(cfdoc, data)
+
+    //await doc.generateSpsPage(data.sps)
+    //await doc.generateIncludesPage(data.includes)
+
   } catch (error) {
     inspect(error)
   }
@@ -210,49 +225,114 @@ async function generateDocumentation(cfdoc, data) {
 
 async function calculateMetrics(data) {
 
+  // data has everything
+  //inspect(data.components.length)
+
+
   // add db object to data
-  data.db = {
-    "sps": [],
-    "queries": []
-  }
+  data.sps = []
+  data.includes = []
   
   // calculate stored procedures and queries usage
-  //let sps = extractor.search(data.components, 'procedures')
-    
-    /*
-    let q = new jinq()
-      .from(data.components)
-      .select( x => { return { 
-        "name": x
-      }})
-      */
-
-    //let q = data.components.selectMany( (x) => { return "eze"} )
-        
-    var doubled = data.components.select((t) => { 
-      if (t)
-        return t.line
-
-    } );  
 
 
+  // get a list of sps
+  let sps = data.components
+    .filter(x => x !== null && x !== undefined )
+    .reduce((a, c) => {
+      return a.concat(                      // a is the acumulator
+        extractor.search(c, 'procedures')   // c is the component
+          .map(f => f                       // f is the function that contains the procedures
+              .procedures
+              .map(p => {                   // p is the procedure
+                
+                let sp = clone(p)
+                sp.key = {                  
+                  file: c.file,
+                  line: p.line,
+                  col: p.col
+                }
+                sp.component = c.displayname
+                sp.function = {
+                  name: f.name,
+                  line: f.line,
+                  col: p.col                  
+                }
+                return sp
+              })
+          ))
+    }, [])
 
-    inspect(doubled)
+  // flatten sps array
+  sps = [].concat.apply([], sps)
 
+  // group by sps key
+  data.sps = sps.reduce((a, c) => {
+    let key = JSON.stringify(c.key)
+    //let key = c.key.file
+    a[key] = a[key] || []
+    a[key].push(c)
+    return a
+  }, {})
+  
+  
+  // query to check how many times an SP is being referenced
+  //inspect(Object.values(sps).map(x => x.length))
 
-/*
-    .map(x => x.procedures)
-    .reduce((a, b) => { 
-      return a.concat(b)
-    })
-    */
+  // calculate files dependencies (cfinclude)
+  data.includes = calculateIncludeDependencies(data)
 
-  //inspect(sps)
-
-  // calculate files dependencies
 
   // calculate functions usage
 
 
   //inspect(data.db)
+}
+
+function calculateIncludeDependencies(data) {
+
+  let includesFromComponents = data.components
+    .filter(x => x !== null && x !== undefined )
+    .reduce((a, c) => {
+      return a.concat(                      // a is the acumulator
+        
+          c.includes
+            .map(i => {
+
+              let include = clone(i)
+              include.file = c.file
+              return include
+
+    }))}, [])
+
+  let includesFromPages = data.pages
+    .filter(x => x !== null && x !== undefined )
+    .reduce((a, c) => {
+      return a.concat(                      // a is the acumulator
+        
+          c.includes
+            .map(i => {
+
+              let include = clone(i)
+              include.file = c.file
+              return include
+
+    }))}, [])
+
+
+    
+
+  // group by template name
+  let includes = includesFromComponents.concat(includesFromPages)
+
+  includes = includes.reduce((a, c) => {
+      let key = c.template
+      a[key] = a[key] || []
+      a[key].push(c)
+      return a
+    }, {})
+  
+  includes = Object.keys(includes).map(key => { return { template: key, includedBy: includes[key] }})
+
+  return includes
 }

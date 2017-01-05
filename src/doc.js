@@ -13,19 +13,20 @@ const path = require('path')
 const mkpath = Promise.promisify(require('mkpath'))
 
 
-exports.generate = async function(cfdoc) {
+exports.generate = async function(cfdoc, data) {
 
   // patch for tmp files
   const dataPath = path.join(cfdoc.env.target, '/tmp')
-
-  // read components "xxxx-data.json" files
-  let dataFiles = await readdirAsync(dataPath, { filterFile: (stats) => { return stats.name.match(/\.cfc-data.json$/) } })
-    
+  
   // read and compile templates
 
   // component template
   const componentTemplateSource = await fs.readFileAsync("./templates/simple/component.html", 'utf8')
   const generateComponent = handlebars.compile(componentTemplateSource)
+
+  // includes template
+  const includesTemplateSource = await fs.readFileAsync("./templates/simple/includes.html", 'utf8')
+  const generateIncludesPageFunc = handlebars.compile(includesTemplateSource)
 
   // page template
   // ...
@@ -33,9 +34,17 @@ exports.generate = async function(cfdoc) {
   // dasboard template
   // ...
 
+
+  // genarates includes page
+  await generateIncludesPage(data.includes, generateIncludesPageFunc, cfdoc)
+
+  // read components "xxxx-data.json" files
+  let dataFiles = await readdirAsync(dataPath, { filterFile: (stats) => { return stats.name.match(/\.cfc-data.json$/) } })
+
   // process each project in parallel
   await Promise.all(dataFiles.map(async (dataFile) => 
     await generateFile(dataFile, generateComponent, cfdoc)))
+
 
   // copy static assests to target directory
 
@@ -81,3 +90,39 @@ async function generateFile(file, generateComponent, cfdoc) {
   }
 
 }
+
+// async function generateComponents(file, generateComponent, cfdoc) {
+// generate components index
+// generate components details
+
+// async function generateDatasources(file, generateComponent, cfdoc) {
+
+// async function generateDependencies(file, generateComponent, cfdoc) {
+// generate matrix
+// generate chart
+
+// async function generateQueries(file, generateComponent, cfdoc) {
+// 
+
+async function generateIncludesPage(data, generatePageFunc, cfdoc) {
+
+  try {
+    const html = generatePageFunc(data)
+
+    let pagePath = path.join(cfdoc.env.target, 'includes.html')
+    let target = path.parse(pagePath)
+    
+    await mkpath(target.dir)
+    await fs.writeFileAsync(pagePath, html)
+    
+  } catch (error) {
+    inspect('Error processing: ' + file)
+  }
+
+}
+
+//exports.generateSpsPage = async function (sps) {
+//}
+
+
+

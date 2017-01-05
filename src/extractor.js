@@ -34,11 +34,12 @@ function traversalSearch(obj, key, value) {
 }
 
 exports.search = traversalSearch
+
+// page data extraction
 exports.extractDataFromPageTree = function (tree) {
 
   let page = {}
-
-  page.includes = extractTag(tree, 'cfinclude')
+  page.includes = extractIncludes(tree)
   page.functions = extractFunctions(tree)
   page.procedures = extractStoredProcedures(tree)
   page.queries = extractQueries(tree)
@@ -48,7 +49,6 @@ exports.extractDataFromPageTree = function (tree) {
 
 
 // component data extraction
-
 exports.extractDataFromComponentTree = function(tree) {
 
   // component definition
@@ -64,6 +64,9 @@ exports.extractDataFromComponentTree = function(tree) {
 
     // get datasources
     component.datasources = extractDatasources(tree)
+
+    // get includes
+    component.includes = extractIncludes(tree)
 
     return component
   }  
@@ -163,6 +166,26 @@ function extractDatasources(tree) {
 
 //----------------------------------------------------
 // page data extraction
+
+function extractIncludes(tree) {
+
+  let includes = traversalSearch(tree, 'name', 'cfinclude')
+    .map( x => {
+      return {
+        template: x.attribs.template,
+        col: x.col,
+        line: x.line
+      }
+    })
+
+    /*
+    
+    
+    
+    */ 
+
+  return includes
+}
 
 function extractTag(tree, tag) {
   let result = []
