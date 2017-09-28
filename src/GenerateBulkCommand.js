@@ -4,7 +4,7 @@ Promise.onPossiblyUnhandledRejection(error => {
   throw error
 })
 const fs = Promise.promisifyAll(require('fs'))
-const doc = require('./doc.js')
+//const doc = require('./doc.js')
 const extractor = require('./extractor.js')
 const readdirAsync = Promise.promisify(require('recursive-readdir-filter'))
 const inspect = require('eyes').inspector({maxLength: false})
@@ -72,7 +72,7 @@ async function processProject(source, target, project, flags) {
   await calculateMetrics(data)
 
   // generate documentation
-  await generateDocumentation(cfdoc, data)
+  //await generateDocumentation(cfdoc, data)
 
   // delete intermediate file?
   if (!cfdoc.env.flags.intermediate) {
@@ -209,7 +209,7 @@ async function generatePageFile(file, cfdoc) {
   
   return data
 }
-
+/*
 async function generateDocumentation(cfdoc, data) {
   
   try {
@@ -224,6 +224,7 @@ async function generateDocumentation(cfdoc, data) {
   }
   
 }
+*/
 
 async function calculateMetrics(data) {
 

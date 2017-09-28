@@ -26,3 +26,11 @@ getMetadata
 
 htmlparser2 with custom handler
   cfml-handler
+
+Tasks
+[ ] use lib as main source folder
+[ ] delete src folder
+[ ] update README.md
+[ ] delete projects folder
+[ ] remove handlebars template engine
+[ ] 
