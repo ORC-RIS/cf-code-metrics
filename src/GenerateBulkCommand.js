@@ -27,10 +27,12 @@ exports.run = async function(source, target, flags) {
   // validate target directory
   if (!fs.existsSync(target)){
 
-    //TODO: try to create the target directory
+    // try to create the target directory
+    fs.mkdirSync(target, '0744')
 
-    console.error('Cannot find target directory: ' + target)
-    process.exit(1)
+    //TODO: handle a potential exception on fs.mkdirSync
+    //console.error('Cannot find target directory: ' + target)
+    //process.exit(1)
   }
 
   // recursive search to find all the cf-doc.json files, this identifies each project

@@ -1,5 +1,7 @@
 
 
+node --harmony-async-await index.js gen-bulk ./test-data/source/ ./test-data/target
+
 
 current coldfusion parser:
 

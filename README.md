@@ -70,3 +70,9 @@ Process a json component metadata file and generates HTML using handlebars templ
 └── www
     └── cf-doc
 ```
+
+### how to use it?
+```
+npm install
+node --harmony-async-await index.js gen-bulk ./test-data/source/ ./test-data/target
+```

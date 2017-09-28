@@ -20,12 +20,16 @@ exports.generate = async function(cfdoc, data) {
   
   // read and compile templates
 
+  //TODO: move template name to config
+  // select template
+  let templateName = 'boostrap'
+
   // component template
-  const componentTemplateSource = await fs.readFileAsync("./templates/simple/component.html", 'utf8')
+  const componentTemplateSource = await fs.readFileAsync("./templates/" + templateName + "/component.html", 'utf8')
   const generateComponent = handlebars.compile(componentTemplateSource)
 
   // includes template
-  const includesTemplateSource = await fs.readFileAsync("./templates/simple/includes.html", 'utf8')
+  const includesTemplateSource = await fs.readFileAsync("./templates/" + templateName + "/includes.html", 'utf8')
   const generateIncludesPageFunc = handlebars.compile(includesTemplateSource)
 
   // page template
