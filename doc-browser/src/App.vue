@@ -1,13 +1,45 @@
 <template>
-  <div id="app">
-    <img src="./assets/logo.png">
-    <h1>{{ msg }}</h1>
-    <p>
-      <router-link to="/hello">Go to Hello</router-link>
-    </p>
+  <div>
+    <v-app toolbar footer>
+        <v-navigation-drawer
+        persistent
+        v-model="drawer"
+        light
+        enable-resize-watcher
+        absolute>
+        <v-list dense>
+          <v-list-tile>
+            <v-list-tile-action>
+              <v-icon>home</v-icon>
+            </v-list-tile-action>
+            <v-list-tile-content>
+              <v-list-tile-title>Home</v-list-tile-title>
+            </v-list-tile-content>
+          </v-list-tile>
+        </v-list>
+      </v-navigation-drawer>
 
-    <!-- route outlet -->
-    <router-view></router-view>
+      <v-toolbar>
+        <v-toolbar-title>
+          <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
+        </v-toolbar-title>
+        <router-link to="/hello">Go to Hello</router-link>
+        <v-spacer></v-spacer>
+        <v-text-field
+          label="search..."
+          single-line
+          append-icon="search"
+          hide-details>
+        </v-text-field>
+      </v-toolbar>
+      <main>
+        <v-container fluid>
+          <router-view></router-view>
+        </v-container>
+      </main>
+      <v-footer>2017</v-footer>
+
+    </v-app>
   </div>
 </template>
 
@@ -16,7 +48,9 @@ export default {
   name: 'app',
   data () {
     return {
-      msg: 'Welcome to Your Vue.js App'
+      title: 'APPS',
+      msg: 'Welcome to Your Vue.js App',
+      drawer: true
     }
   }
 }
@@ -24,12 +58,7 @@ export default {
 
 <style>
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+
 }
 
 h1, h2 {
