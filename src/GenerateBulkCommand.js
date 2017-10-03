@@ -39,9 +39,12 @@ exports.run = async function(source, target, flags) {
   let projects = await readdirAsync(source, { filterFile: (stats) => { return stats.name === 'cf-doc.json' } })
 
   // process each project in parallel
-  await Promise.all(projects.map(async (project) => 
+  let index = await Promise.all(projects.map(async (project) => 
       await processProject(source, target, project, flags)))
 
+  // write index.json
+  let indexPath = path.join(target, 'index.json')
+  await fs.writeFileAsync(indexPath, JSON.stringify(index, null, 2))
 }
 
 
@@ -68,15 +71,21 @@ async function processProject(source, target, project, flags) {
   // analize intermediate files to extract components, functions and stored procedures calls by file (-data.json)
   let data = await generateIntermediateFiles(cfdoc)
 
-  // calculate metrics
-  await calculateMetrics(data)
+  // calculate metrics and creates data.json file
+  let metrics = await calculateMetrics(cfdoc, data)
+  //inspect(cfdoc)
 
   // generate documentation
   //await generateDocumentation(cfdoc, data)
 
-  // delete intermediate file?
+  // delete intermediate files?
   if (!cfdoc.env.flags.intermediate) {
     //TODO: implement delete
+  }
+
+  return { 
+    project: cfdoc.env.folderName,
+    components: metrics.components.length 
   }
 
 }
@@ -226,7 +235,7 @@ async function generateDocumentation(cfdoc, data) {
 }
 */
 
-async function calculateMetrics(data) {
+async function calculateMetrics(cfdoc, data) {
 
   // data has everything
   //inspect(data.components.length)
@@ -288,8 +297,13 @@ async function calculateMetrics(data) {
 
   // calculate functions usage
 
+  //inspect(data)
 
-  //inspect(data.db)
+  // write data into a temporary directory
+  let dataPath = path.join(cfdoc.env.target, 'data.json')
+  await fs.writeFileAsync(dataPath, JSON.stringify(data, null, 2))
+
+  return data
 }
 
 function calculateIncludeDependencies(data) {
