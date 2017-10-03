@@ -4,7 +4,8 @@
   "description": "ColdFusion code metrics",
   "main": "lib/index.js",
   "scripts": {
-    "test": "./node_modules/.bin/mocha -u bdd"
+    "test": "./node_modules/.bin/mocha -u bdd",
+    "gen": "node --harmony-async-await index.js gen-bulk ./../tmp/ ./test-data/target && cp -R ./test-data/target/ ./doc-browser/data/"
   },
   "keywords": [
     "cf",
