@@ -24,6 +24,7 @@
   "author": "Ezequiel M Gioia",
   "license": "MIT",
   "dependencies": {
+    "axios": "^0.16.2",
     "bluebird": "^3.4.0",
     "chai": "^3.5.0",
     "chai-as-promised": "^5.3.0",

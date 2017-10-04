@@ -83,11 +83,15 @@
 </template>
 
 <script>
+import axios from 'axios'
+var inspect = require('eyes').inspector({maxLength: false})
+
 export default {
   name: 'dashboard',
   data: function () {
     return {
-      projects: [
+      projects: []
+/*
       {
         "project": "tera",
         "components": 9
@@ -105,8 +109,19 @@ export default {
         "project": "move",
         "components": 15
       }
-    ]
+    ]*/
     }
+  },
+
+  created() {
+    axios.get('./data/index.json')
+    .then(response => {
+      this.projects = response.data
+    })
+    .catch(e => {
+      console.log(e)
+    })
+    
   }
 }
 </script>
