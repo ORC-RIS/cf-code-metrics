@@ -43,7 +43,7 @@ exports.run = async function(source, target, flags) {
       await processProject(source, target, project, flags)))
 
   // write index.json
-  let indexPath = path.join(target, 'index.json')
+  let indexPath = path.join(target, 'projects.json')
   await fs.writeFileAsync(indexPath, JSON.stringify(index, null, 2))
 }
 
@@ -85,7 +85,11 @@ async function processProject(source, target, project, flags) {
 
   return { 
     project: cfdoc.env.folderName,
-    components: metrics.components.length 
+    components: metrics.components.length,
+    sps: metrics.sps.length,
+    queries: metrics.queries.length,
+    includes: metrics.includes.length,
+    issues: 73
   }
 
 }
@@ -244,6 +248,7 @@ async function calculateMetrics(cfdoc, data) {
   // add db object to data
   data.sps = []
   data.includes = []
+  data.queries = []
   
   // calculate stored procedures and queries usage
 
@@ -287,7 +292,7 @@ async function calculateMetrics(cfdoc, data) {
     return a
   }, {})
   
-  
+  data.sps = []
   // query to check how many times an SP is being referenced
   //inspect(Object.values(sps).map(x => x.length))
 
@@ -300,7 +305,7 @@ async function calculateMetrics(cfdoc, data) {
   //inspect(data)
 
   // write data into a temporary directory
-  let dataPath = path.join(cfdoc.env.target, 'data.json')
+  let dataPath = path.join(cfdoc.env.target, 'project-data.json')
   await fs.writeFileAsync(dataPath, JSON.stringify(data, null, 2))
 
   return data

@@ -11,8 +11,15 @@
               </div>
             </v-card-title>
             <v-card-text>
-              <h5>Components: {{item.components}}</h5>
-              <h5>Issues: {{item.components}}</h5>
+              <v-layout column>
+                <ul>
+                  <li>Components: {{item.components}}</li>
+                  <li>Stored Procedures: {{item.sps}}</li>
+                  <li>Queries: {{item.queries}}</li>
+                  <li>Includes: {{item.includes}}</li>
+                  <li>Issues: {{item.issues}}</li>
+                </ul>
+              </v-layout>
             </v-card-text>
             <v-card-actions>
               <v-btn flat class="orange--text">GitHub</v-btn>
@@ -114,7 +121,7 @@ export default {
   },
 
   created() {
-    axios.get('./data/index.json')
+    axios.get('./data/projects.json')
     .then(response => {
       this.projects = response.data
     })
