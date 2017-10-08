@@ -90,10 +90,11 @@ export default {
 <style>
 @import url('https://fonts.googleapis.com/icon?family=Material+Icons');
 @import url('https://code.getmdl.io/1.2.1/material.blue-red.min.css');
-
+/*
 #app {
 
 }
+*/
 
 h1, h2 {
   font-weight: normal;
