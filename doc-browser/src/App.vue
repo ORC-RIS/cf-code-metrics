@@ -1,69 +1,40 @@
 <template>
+<div class="mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header mdl-layout--clipped-drawer">
+            
 
-<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
-    <header class="mdl-layout__header">
-      <div class="mdl-layout__header-row">
-        <span class="mdl-layout-title">Documents</span>
-      </div>
-    </header>
-    <div class="mdl-layout__drawer">
-      <span class="mdl-layout-title">Documents</span>
+  <header class="mdl-layout__header">
+    <div class="mdl-layout__header-row">
+      <span class="mdl-layout-title"><router-link to="/">Apps</router-link></span>
+      <span class="mdl-layout-title">&nbsp;/ [search]</span>
+    </div>
+  </header>
+
+
+    <div class="mdl-layout__drawer">    
+            
       <nav class="mdl-navigation">
-        <router-link class="mdl-navigation__link" to="/" @click.native="hideMenu">Home</router-link>
-        <router-link class="mdl-navigation__link" to="/post" @click.native="hideMenu">Post a picture</router-link>
+        <a class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">home</i>Home</a>
+        <a class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">inbox</i>Inbox</a>
+        <a class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">delete</i>Trash</a>
+        <a class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">report</i>Spam</a>
+        <a class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">forum</i>Forums</a>
+        <a class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">flag</i>Updates</a>
+        <a class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">local_offer</i>Promos</a>
+        <a class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">shopping_cart</i>Purchases</a>
+        <a class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">people</i>Social</a>
+        <div class="mdl-layout-spacer"></div>
+        <a class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">help_outline</i><span class="visuallyhidden">Help</span></a>
       </nav>
     </div>
-    <main class="mdl-layout__content">
-      <div class="page-content">
-        <router-view></router-view>
-      </div>
-    </main>
-  </div>
+  
 
-<!--
-  <div>
-    <v-app toolbar footer>
-        <v-navigation-drawer
-        persistent
-        v-model="drawer"
-        light
-        enable-resize-watcher
-        absolute>
-        <v-list dense>
-          <v-list-tile>
-            <v-list-tile-action>
-              <v-icon>home</v-icon>
-            </v-list-tile-action>
-            <v-list-tile-content>
-              <v-list-tile-title>Home</v-list-tile-title>
-            </v-list-tile-content>
-          </v-list-tile>
-        </v-list>
-      </v-navigation-drawer>
+  <main class="mdl-layout__content">
+    <div class="page-content">
+      <router-view></router-view>
+    </div>
+  </main>
 
-      <v-toolbar>
-        <v-toolbar-title>
-          <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
-        </v-toolbar-title>
-        <router-link to="/hello">Go to Hello</router-link>
-        <v-spacer></v-spacer>
-        <v-text-field
-          label="search..."
-          single-line
-          append-icon="search"
-          hide-details>
-        </v-text-field>
-      </v-toolbar>
-      <main>
-        <v-container fluid>
-          <router-view></router-view>
-        </v-container>
-      </main>
-      <v-footer>2017</v-footer>
-
-    </v-app>
-  </div>
-  -->
+</div>
 </template>
 
 <script>
@@ -73,16 +44,11 @@ export default {
   name: 'app',
   data () {
     return {
-      title: 'APPS',
-      msg: 'Welcome to Your Vue.js App',
-      drawer: true
+      title: 'APPS'
     }
   },
   methods: {
-    hideMenu: function () {
-      document.getElementsByClassName('mdl-layout__drawer')[0].classList.remove('is-visible')
-      document.getElementsByClassName('mdl-layout__obfuscator')[0].classList.remove('is-visible')
-    }
+    
   }
 }
 </script>
@@ -112,5 +78,43 @@ li {
 
 a {
   color: #42b983;
+}
+
+/* Position the drawer below the header */
+.mdl-layout--clipped-drawer .mdl-layout__drawer {
+  margin-top: 64px;
+  height: calc(100% - 64px);
+}
+
+.mdl-layout--clipped-drawer.is-small-screen .mdl-layout__drawer { /* On smaller screens where the header is smaller */
+  margin-top: 56px;
+  height: calc(100% - 56px);
+}
+
+/* Position the obfuscator below the header */
+.mdl-layout--clipped-drawer .mdl-layout__obfuscator {
+  margin-top: 64px;
+  height: calc(100% - 64px);
+}
+
+.mdl-layout--clipped-drawer.is-small-screen .mdl-layout__obfuscator {
+  margin-top: 56px;
+  height: calc(100% - 56px);
+}
+
+
+/* 
+ * Fixed draw layout
+ */
+
+/* Expand the header over the space reserved for the full-height navigation draw */
+.mdl-layout--clipped-drawer.mdl-layout--fixed-drawer>header.mdl-layout__header {
+  margin-left: 0;
+  width: 100%;
+}
+
+/* Hide the hamburger icon when the drawer is showing */
+.mdl-layout--clipped-drawer.mdl-layout--fixed-drawer:not(.is-small-screen) .mdl-layout__drawer-button {
+  display: none;
 }
 </style>

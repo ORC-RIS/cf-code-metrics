@@ -1,4 +1,5 @@
 <template>
+  
   <div>
     <div>MY APP: {{ id }}</div>
     <p>{{ name }}</p>
@@ -8,6 +9,7 @@
       <li v-for="component in components" :key="component.displayname">{{ component.displayname }}</li>
     </ul>
   </div>
+
 </template>
 
 <script>
