@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Hello from './../components/Hello.vue'
 import Dashboard from './../components/Dashboard.vue'
 import Application from './../components/Application.vue'
 
@@ -18,11 +17,6 @@ export default new Router({
       name: 'Application',
       component: Application,
       props: true
-    },
-    {
-      path: '/hello',
-      name: 'Hello',
-      component: Hello
     }
   ]
 })
