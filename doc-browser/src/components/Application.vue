@@ -2,12 +2,14 @@
   
   <div>
     <div>MY APP: {{ id }}</div>
-    <p>{{ name }}</p>
+    
 
-    <h3>Components</h3>
+    <h3>Components:</h3>
     <ul>
-      <li v-for="component in components" :key="component.displayname">{{ component.displayname }}</li>
+      <li v-for="item in components" :key="item.line">name: {{ item.displayname }}</li>
     </ul>
+     
+<!--      <p>Total: {{components.lenght}}</p> -->
   </div>
 
 </template>
@@ -26,8 +28,20 @@ export default {
     }    
   },
   mounted: function () {
+    var that = this
     api.getProject(this.id).then(project => {
-      this.components = project.components
+      //console.log(project)
+      //that.components.push(project.components[0])
+      //console.log(project.components)
+
+      for(var x in project.components) {
+        if (project.components[x] != null) {
+          that.components.push(project.components[x])
+        }
+      }
+
+      that.name = 'pepe'
+      //console.log(that.components)
     })
     
     //this.name = proj[0].name

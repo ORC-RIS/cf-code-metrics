@@ -1,6 +1,31 @@
 <template>
-<div class="mdl-grid">
+<div class="columns is-multiline">
 
+<div class="column is-4" v-for="item in projects" :key="item.projectId">
+  <div class="card" 
+    v-on:click="viewProject(item.projectId)">    
+    <div class="card-content">
+      <div class="media">
+        <div class="media-content">
+          <p class="title is-4">{{item.project}}</p>
+          <p class="subtitle is-6">description</p>
+        </div>
+      </div>
+
+      <div class="content">
+        <ul>
+          <li>? datasources</li>
+          <li>{{item.components}} components</li>
+          <li>{{item.sps}} stores procedures</li>
+          <li>{{item.queries}} queries</li>
+          <li>{{item.includes}} includes</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--
   <div v-for="item in projects" :key="item.projectId" 
     v-on:click="viewProject(item.projectId)"
     class="mdl-cell--4-col mdl-cell mdl-card mdl-shadow--2dp">
@@ -14,6 +39,7 @@
       </a>      
     </div>
   </div>
+-->
 
 </div>
 </template>
@@ -41,3 +67,7 @@ export default {
   }
 }
 </script>
+
+<style>
+
+</style>
