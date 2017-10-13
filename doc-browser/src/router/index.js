@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Dashboard from './../components/Dashboard.vue'
 import Application from './../components/Application.vue'
+import ApplicationDatasources from './../components/ApplicationDatasources.vue'
 
 Vue.use(Router)
 
@@ -16,7 +17,14 @@ export default new Router({
       path: '/:id',
       name: 'Application',
       component: Application,
-      props: true
+      props: true,
+      children: [
+        { 
+          path: 'datasources',
+          component: ApplicationDatasources,
+          props: true
+        }
+      ]
     }
   ]
 })

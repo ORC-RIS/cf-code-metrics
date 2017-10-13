@@ -1,15 +1,26 @@
 <template>
   
   <div>
-    <div>MY APP: {{ id }}</div>
-    
+    <div class="tabs">
+      <ul>
+        <li><router-link v-bind:to="'/' + id + '/datasources'">Datasources</router-link></li>
+        <li><a>Queries</a></li>
+        <li><a>Stored procedures</a></li>
+        <li><a>Components</a></li>
+        <li><a>Includes</a></li>
+      </ul>
+    </div>
 
-    <h3>Components:</h3>
-    <ul>
-      <li v-for="item in components" :key="item.line">name: {{ item.file }}</li>
-    </ul>
-     
-<!--      <p>Total: {{components.lenght}}</p> -->
+    <div>
+      <router-view></router-view>
+    </div>
+
+    <!-- 
+      <h3>Components:</h3>
+      <ul>
+        <li v-for="item in components" :key="item.line">name: {{ item.file }}</li>
+      </ul>
+    -->
   </div>
 
 </template>
@@ -24,8 +35,15 @@ export default {
   data: function () {
     return {
       name: '',
-      components: []
+      components: [],
+      projectData: {}
     }    
+  },
+  methods: {
+    onClick() {
+      //console.log(this.projectData)
+      //this.$emit('data', 'mensaje')
+    }
   },
   mounted: function () {
     var that = this
@@ -33,7 +51,7 @@ export default {
       //console.log(project)
       //that.components.push(project.components[0])
       //console.log(project.components)
-
+      that.projectData = project
       for(var x in project.components) {
         if (project.components[x] != null) {
           that.components.push(project.components[x])

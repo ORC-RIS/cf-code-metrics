@@ -6,7 +6,7 @@
 <nav class="navbar is-transparent is-warning" role="navigation" aria-label="main navigation">
   <div class="navbar-brand">
     <a class="navbar-item">
-      APPS
+      <router-link to="/">Apps</router-link>
     </a>
     <button class="button navbar-burger">
       <span></span>
@@ -42,6 +42,7 @@
 <div class="columns">
 
   <!-- side menu -->
+  <!--
   <div class="column is-2 is-hidden-mobile side-menu">
     <aside class="menu">
       <p class="menu-label">
@@ -78,6 +79,7 @@
       </ul>
     </aside>
   </div>
+  -->
 
   <!-- main content -->
   <div class="column">
@@ -212,6 +214,10 @@ export default {
 
 .side-menu {  
   /* width: 200px; */
+}
+
+.section {
+  padding-top: 20px;
 }
 
 </style>

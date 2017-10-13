@@ -1,29 +1,46 @@
 <template>
-<div class="columns is-multiline">
 
-<div class="column is-4" v-for="item in projects" :key="item.project"
-  @click="viewProject(item.project)">
-  <div class="card">
-    <div class="card-content">
-      <div class="media">
-        <div class="media-content">
-          <p class="title is-4">{{item.project}}</p>
-          <p class="subtitle is-6">description</p>
+<div>
+  <!--
+  <div class="tabs">
+    <ul>
+      <li>Datasources</li>
+      <li>Queries</li>
+      <li>Stored procedures</li>
+      <li>Components</li>
+      <li>Includes</li>
+    </ul>
+  </div>
+  -->
+
+  <div class="columns is-multiline">
+    <div class="column is-4" v-for="item in projects" :key="item.project"
+      @click="viewProject(item.project)">
+      <div class="card">
+        <div class="card-content">
+          <div class="media">
+            <div class="media-content">
+              <p class="title is-4">{{item.project}}</p>
+              <p class="subtitle is-6">description</p>
+            </div>
+          </div>
+
+          <div class="content">
+            <ul>
+              <li>? datasources</li>
+              <li>{{item.components}} components</li>
+              <li>{{item.sps}} stores procedures</li>
+              <li>{{item.queries}} queries</li>
+              <li>{{item.includes}} includes</li>
+            </ul>
+          </div>
         </div>
-      </div>
-
-      <div class="content">
-        <ul>
-          <li>? datasources</li>
-          <li>{{item.components}} components</li>
-          <li>{{item.sps}} stores procedures</li>
-          <li>{{item.queries}} queries</li>
-          <li>{{item.includes}} includes</li>
-        </ul>
-      </div>
     </div>
   </div>
+
 </div>
+
+
 
 <!--
   <div v-for="item in projects" :key="item.projectId" 
