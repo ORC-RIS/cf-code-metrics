@@ -6,7 +6,7 @@
 
     <h3>Components:</h3>
     <ul>
-      <li v-for="item in components" :key="item.line">name: {{ item.displayname }}</li>
+      <li v-for="item in components" :key="item.line">name: {{ item.file }}</li>
     </ul>
      
 <!--      <p>Total: {{components.lenght}}</p> -->

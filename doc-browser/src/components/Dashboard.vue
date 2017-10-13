@@ -1,9 +1,9 @@
 <template>
 <div class="columns is-multiline">
 
-<div class="column is-4" v-for="item in projects" :key="item.projectId">
-  <div class="card" 
-    v-on:click="viewProject(item.projectId)">    
+<div class="column is-4" v-for="item in projects" :key="item.project"
+  @click="viewProject(item.project)">
+  <div class="card">
     <div class="card-content">
       <div class="media">
         <div class="media-content">
@@ -62,6 +62,7 @@ export default {
   },
   methods: {
     viewProject: function(projectId) {
+      console.log(projectId)
       this.$router.push({ name: 'Application', params: { id: projectId }})
     }
   }

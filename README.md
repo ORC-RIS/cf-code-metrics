@@ -22,6 +22,15 @@ node --harmony-async-await index.js gen-bulk ./test-data/source/ ./test-data/tar
 
 ## Internals
 
+### phase 1
+Extracts components and pages
+### phase 2
+Calculates metrics crossing components and pages to extract:
+* sps
+* queries
+* includes
+* datasources
+
 ### Includes dependencies calculation
 
 ### Call graph estimation

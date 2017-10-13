@@ -4,7 +4,6 @@ Promise.onPossiblyUnhandledRejection(error => {
   throw error
 })
 const fs = Promise.promisifyAll(require('fs'))
-//const doc = require('./doc.js')
 const extractor = require('./extractor.js')
 const readdirAsync = Promise.promisify(require('recursive-readdir-filter'))
 const inspect = require('eyes').inspector({maxLength: false})
@@ -12,9 +11,6 @@ const path = require('path')
 const parser = require('./parser.js')
 const mkpath = Promise.promisify(require('mkpath'))
 const clone = require('clone')
-//const jinq = require('jinq')
-//require('linqjs')
-//const _ = require('lodash');
 
 exports.run = async function(source, target, flags) {
   
@@ -89,6 +85,7 @@ async function processProject(source, target, project, flags) {
     sps: metrics.sps.length,
     queries: metrics.queries.length,
     includes: metrics.includes.length,
+    datasources: metrics.datasources.length,
     issues: 73
   }
 
@@ -249,11 +246,11 @@ async function calculateMetrics(cfdoc, data) {
   data.sps = []
   data.includes = []
   data.queries = []
+  data.datasources = []
+
   
-  // calculate stored procedures and queries usage
-
-
-  // get a list of sps
+  // calculate stored procedures
+  // get a list of sps from components
   let sps = data.components
     .filter(x => x !== null && x !== undefined )
     .reduce((a, c) => {
@@ -282,7 +279,11 @@ async function calculateMetrics(cfdoc, data) {
 
   // flatten sps array
   sps = [].concat.apply([], sps)
+  data.sps = sps
+  //TODO: get a sps from pages
+  // ...
 
+  /*
   // group by sps key
   data.sps = sps.reduce((a, c) => {
     let key = JSON.stringify(c.key)
@@ -291,14 +292,20 @@ async function calculateMetrics(cfdoc, data) {
     a[key].push(c)
     return a
   }, {})
-  
-  data.sps = []
+  */
+
+  //data.sps = []
   // query to check how many times an SP is being referenced
   //inspect(Object.values(sps).map(x => x.length))
 
   // calculate files dependencies (cfinclude)
   data.includes = calculateIncludeDependencies(data)
 
+  // extracts a list of queries from components and pages
+  data.queries = extractQueries(data)
+
+  // extracts a list of datasources
+  data.datasources = extractDatasources(data)
 
   // calculate functions usage
 
@@ -309,6 +316,57 @@ async function calculateMetrics(cfdoc, data) {
   await fs.writeFileAsync(dataPath, JSON.stringify(data, null, 2))
 
   return data
+}
+
+function extractDatasources(data) {
+
+  // get datasources from sps  
+  let ds2 = data.sps.reduce((a, s) => {
+    if ('datasource' in s && a.indexOf(s.datasource) < 0) {
+      a.push(s.datasource)
+    }
+    return a
+  }, [])
+
+  // get datasources from queries
+  let ds = data.queries.reduce((a, q) => {
+    if ('datasource' in q && a.indexOf(q.datasource) < 0) {
+      a.push(q.datasource)
+    }
+    return a
+  }, [])
+
+  return ds2.concat(ds)  
+}
+
+function extractQueries(data) {
+  
+  // get queries from components  
+  let componentsQueries = []
+  
+  // get queries from pages
+  let pageQueries = data.pages
+    .filter(x => x !== null && x !== undefined )
+    .reduce((a, p) => {                           // p is the current page
+      return a.concat(                            // a is the acumulator        
+        p.queries
+          .map(q => {                             // q is the query
+
+            let query = clone(q)
+            query.key = {                  
+              file: p.file,
+              line: -1, //q.line,
+              col: -1   //q.col
+            }
+            query.page = p.file                
+            return query
+          })
+        )
+    }, [])
+
+  let queries = componentsQueries.concat(pageQueries)
+
+  return queries
 }
 
 function calculateIncludeDependencies(data) {
@@ -341,10 +399,7 @@ function calculateIncludeDependencies(data) {
 
     }))}, [])
 
-
-    
-
-  // group by template name
+  // group by template name (merging both arrays and reducing by template name)
   let includes = includesFromComponents.concat(includesFromPages)
 
   includes = includes.reduce((a, c) => {
