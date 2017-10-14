@@ -11,6 +11,7 @@ const path = require('path')
 const parser = require('./parser.js')
 const mkpath = Promise.promisify(require('mkpath'))
 const clone = require('clone')
+const pd = require('pretty-data').pd
 
 exports.run = async function(source, target, flags) {
   
@@ -358,7 +359,8 @@ function extractQueries(data) {
               line: -1, //q.line,
               col: -1   //q.col
             }
-            query.page = p.file                
+            query.file = p.file
+            query.text = pd.sqlmin(query.text.replace(/\t/g, ' ').trim()) //, preserveComments=true)               
             return query
           })
         )

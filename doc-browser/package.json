@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "bulma": "^0.6.0",
+    "pretty-data": "^0.40.0",
     "vue": "^2.5.2",
     "vue-router": "^3.0.1"
   },
