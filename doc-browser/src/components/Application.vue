@@ -4,7 +4,7 @@
     <div class="tabs">
       <ul>
         <li><router-link v-bind:to="'/' + id + '/datasources'">Datasources</router-link></li>
-        <li><a>Queries</a></li>
+        <li><router-link v-bind:to="'/' + id + '/queries'">Queries</router-link></li>
         <li><a>Stored procedures</a></li>
         <li><a>Components</a></li>
         <li><a>Includes</a></li>
