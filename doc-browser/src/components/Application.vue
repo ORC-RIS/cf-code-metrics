@@ -3,11 +3,12 @@
   <div>
     <div class="tabs">
       <ul>
-        <li><router-link v-bind:to="'/' + id + '/datasources'">Datasources</router-link></li>
-        <li><a>Queries</a></li>
-        <li><a>Stored procedures</a></li>
-        <li><a>Components</a></li>
-        <li><a>Includes</a></li>
+        <!-- <li><router-link v-bind:to="'/' + id + '/datasources'">Datasources</router-link></li> -->
+        <li><router-link v-bind:to="`/${id}/datasources`">Datasources</router-link></li>
+        <li><router-link v-bind:to="`/${id}/queries`">Queries</router-link></li>
+        <li><router-link v-bind:to="`/${id}/storedprocedures`">Stored procedures</router-link></li>
+        <li><router-link v-bind:to="`/${id}/components`">Components</router-link></li>
+        <li><router-link v-bind:to="`/${id}/includes`">Includes</router-link></li>
       </ul>
     </div>
 

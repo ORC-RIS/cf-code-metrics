@@ -42,3 +42,5 @@ docs/html
 projects
 projects/paris
 test-data
+package-lock.json
+doc-browser/package-lock.json
