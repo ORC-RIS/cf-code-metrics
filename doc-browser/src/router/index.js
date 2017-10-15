@@ -5,6 +5,8 @@ import Application from './../components/Application.vue'
 import ApplicationDatasources from './../components/Datasources.vue'
 import ApplicationQueries from './../components/Queries.vue'
 import ApplicationComponents from './../components/Components.vue'
+import ApplicationIncludes from './../components/Includes.vue'
+import ApplicationStoredProcedures from './../components/StoredProcedures.vue'
 
 Vue.use(Router)
 
@@ -34,6 +36,16 @@ export default new Router({
         { 
           path: 'components',
           component: ApplicationComponents,
+          props: true
+        },
+        { 
+          path: 'includes',
+          component: ApplicationIncludes,
+          props: true
+        },
+        { 
+          path: 'storedprocedures',
+          component: ApplicationStoredProcedures,
           props: true
         }
       ]
