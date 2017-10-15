@@ -2,8 +2,9 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Dashboard from './../components/Dashboard.vue'
 import Application from './../components/Application.vue'
-import ApplicationDatasources from './../components/ApplicationDatasources.vue'
-import ApplicationQueries from './../components/ApplicationQueries.vue'
+import ApplicationDatasources from './../components/Datasources.vue'
+import ApplicationQueries from './../components/Queries.vue'
+import ApplicationComponents from './../components/Components.vue'
 
 Vue.use(Router)
 
@@ -28,6 +29,11 @@ export default new Router({
         { 
           path: 'queries',
           component: ApplicationQueries,
+          props: true
+        },
+        { 
+          path: 'components',
+          component: ApplicationComponents,
           props: true
         }
       ]

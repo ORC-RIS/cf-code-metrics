@@ -144,8 +144,14 @@ async function generateIntermediateFiles(cfdoc) {
 
   // parse each component tree
   let components = await Promise.all(componentFiles.map(async (file) => {
-        return await generateComponentFile(file, cfdoc)
-  }))
+    let componentData = await generateComponentFile(file, cfdoc)
+
+    // filtering null empty components
+    if (componentData == null)
+      console.info('Ignored empty component: ' + file)
+
+    return componentData
+  })).filter(x => x != null)
 
 
   // read all page (cfm) files in tmp directory  
@@ -173,7 +179,9 @@ async function generateComponentFile(file, cfdoc) {
   let data = null
 
   try {
+    
     data = extractor.extractDataFromComponentTree(tree)
+    
     if (data) {
       data.file = file
       data.type = 'component'
@@ -189,7 +197,7 @@ async function generateComponentFile(file, cfdoc) {
 
   // write data into a temporary directory
   await fs.writeFileAsync(dataPath, JSON.stringify(data, null, 2))
-
+  
   return data
 }
 
@@ -360,7 +368,7 @@ function extractQueries(data) {
               col: -1   //q.col
             }
             query.file = p.file
-            query.text = pd.sqlmin(query.text.replace(/\t/g, ' ').trim()) //, preserveComments=true)               
+            query.text = pd.sql(query.text.replace(/\t/g, ' ').trim()) //, preserveComments=true)               
             return query
           })
         )

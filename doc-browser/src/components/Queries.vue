@@ -11,7 +11,7 @@
         <h5 class="title is-6">{{q.name}}</h5>
         <small>{{q.file}}</small>
 
-        <pre>{{q.text | sql}}</pre>
+        <pre>{{q.text}}</pre>
       </div>
 
 
@@ -32,7 +32,7 @@
 
 <script>
 import api from './../api'
-var pd = require('pretty-data').pd
+//var pd = require('pretty-data').pd
 
 const slqFilter = (text) => {
   return (pd.sql(text).trim())
