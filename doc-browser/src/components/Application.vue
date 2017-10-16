@@ -4,11 +4,11 @@
     <div class="tabs">
       <ul>
         <!-- <li><router-link v-bind:to="'/' + id + '/datasources'">Datasources</router-link></li> -->
-        <li><router-link v-bind:to="`/${id}/datasources`">Datasources</router-link></li>
-        <li><router-link v-bind:to="`/${id}/queries`">Queries</router-link></li>
-        <li><router-link v-bind:to="`/${id}/storedprocedures`">Stored procedures</router-link></li>
-        <li><router-link v-bind:to="`/${id}/components`">Components</router-link></li>
-        <li><router-link v-bind:to="`/${id}/includes`">Includes</router-link></li>
+        <li v-for="action in actions" :key="action.name"
+            v-on:click="setActive(action)"
+            v-bind:class="{ 'is-active': action.isActive }">
+          <router-link v-bind:to="`/${id}/${action.uri}`">{{action.name}}</router-link>
+        </li>
       </ul>
     </div>
 
@@ -37,15 +37,51 @@ export default {
     return {
       name: '',
       components: [],
-      projectData: {}
+      projectData: {},
+      actions: [
+        {
+          name: 'Datasources',
+          uri: 'datasources',
+          isActive: false
+        },
+        {
+          name: 'Queries',
+          uri: 'queries',
+          isActive: false
+        },
+        {
+          name: 'Stored procedures',
+          uri: 'storedprocedures',
+          isActive: false
+        },
+        {
+          name: 'Components',
+          uri: 'components',
+          isActive: false
+        },
+        {
+          name: 'Includes',
+          uri: 'includes',
+          isActive: false
+        }        
+      ]
     }    
   },
   methods: {
-    onClick() {
-      //console.log(this.projectData)
-      //this.$emit('data', 'mensaje')
+    setActive(action) {
+
+      // inactivate any other action
+      this.actions.forEach(action => {
+        if (action.isActive)
+          action.isActive = false
+      })
+
+      // activate current action
+      action.isActive = true
+
     }
   },
+  
   mounted: function () {
     var that = this
     api.getProject(this.id).then(project => {
@@ -62,10 +98,10 @@ export default {
       that.name = 'pepe'
       //console.log(that.components)
     })
-    
-    //this.name = proj[0].name
-    //this.name = props.id
-    //console.log(proj)
+
+    // browse to datasources
+    // ...
+
   }
 }
 
