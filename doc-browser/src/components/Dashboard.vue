@@ -2,7 +2,7 @@
 <div>
 
   <div class="columns is-multiline">
-    <div class="column is-4" v-for="item in projects" :key="item.project"
+    <div class="column is-4" v-for="item in filteredProjects" :key="item.project"
       @click="viewProject(item.project)">
       <div class="card">
         <div class="card-content">
@@ -45,10 +45,10 @@ var inspect = require('eyes').inspector({maxLength: false})
 
 export default {
   name: 'dashboard',
+  props:['searchTerm'],
   data: function() {
     return {
-      projects: [],
-      searchTerm: ''
+      projects: []
     }
   },
   mounted: function() {
@@ -58,14 +58,13 @@ export default {
   },
   methods: {
     viewProject: function(projectId) {
-      console.log(projectId)
-      this.$router.push({ name: 'Application', params: { id: projectId }})
+      this.$router.push({ name: 'Application', params: { id: projectId, searchTerm: this.searchTerm }})
     }
   },
   computed: {
     filteredProjects() {
       return this.projects.filter(p => {
-         return p.project.indexOf(this.searchTerm.toLowerCase()) > -1
+         return p.project.toLowerCase().indexOf(this.searchTerm.toLowerCase()) > -1
       })
     }
   }

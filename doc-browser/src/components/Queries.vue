@@ -3,11 +3,8 @@
     <h1 class="hero title is-1">{{id}} queries</h1>
 
     <div>
-<!--       <ul v-for="q in queries" :key="q.name">
-        <li>{{q.name}}</li>
-      </ul> -->
-
-      <div class="container" v-for="q in queries" :key="q.name">
+      
+      <div class="container" v-for="q in filteredQueries" :key="q.row + q.col">
         <h5 class="title is-6">{{q.name}}</h5>
         <small>{{q.file}}</small>
 
@@ -32,33 +29,34 @@
 
 <script>
 import api from './../api'
-//var pd = require('pretty-data').pd
-
-const slqFilter = (text) => {
-  return (pd.sql(text).trim())
-}
 
 export default {
   name: 'ApplicationQueries',
-  props:['id'],
+  props:['id', 'searchTerm'],
 
   data: function() {
     return {
       queries: []
     }
   },
-
   mounted: function() {
     var that = this
     api.getProject(this.id).then(project => {
       that.queries = project.queries
     }) 
   },
-
-  filters: {
-    sql: slqFilter
+  computed: {
+    filteredQueries() {
+      return this.queries.filter(q => {
+        let term = this.searchTerm.toLowerCase()
+        return (
+               (q.hasOwnProperty('name') && q.name.toLowerCase().indexOf(term) > -1)
+            //|| (q.hasOwnProperty('file') && q.file.toLowerCase().indexOf(term) > -1)  
+            || (q.hasOwnProperty('text') && q.text.toLowerCase().indexOf(term) > -1)  
+          )
+      })
+    }
   }
-
 }
 </script>
 

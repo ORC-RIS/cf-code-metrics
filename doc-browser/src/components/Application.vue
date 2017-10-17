@@ -3,7 +3,6 @@
   <div>
     <div class="tabs">
       <ul>
-        <!-- <li><router-link v-bind:to="'/' + id + '/datasources'">Datasources</router-link></li> -->
         <li v-for="action in actions" :key="action.name"
             v-on:click="setActive(action)"
             v-bind:class="{ 'is-active': action.isActive }">
@@ -13,17 +12,10 @@
     </div>
 
     <div>
-      <router-view></router-view>
+      <router-view v-bind:searchTerm="searchTerm"></router-view>
     </div>
 
-    <!-- 
-      <h3>Components:</h3>
-      <ul>
-        <li v-for="item in components" :key="item.line">name: {{ item.file }}</li>
-      </ul>
-    -->
   </div>
-
 </template>
 
 <script>
@@ -31,7 +23,7 @@ import api from './../api'
 
 export default {
   name: 'Application',
-  props: ['id'],
+  props: ['id', 'searchTerm'],
   
   data: function () {
     return {
@@ -95,7 +87,9 @@ export default {
         }
       }
 
-      that.name = 'pepe'
+      //work-around to browse datasources by default
+      this.actions[0].isActive = true
+      this.$router.push({ name: 'Datasources', params: { id: this.id, searchTerm: this.searchTerm }})
       //console.log(that.components)
     })
 

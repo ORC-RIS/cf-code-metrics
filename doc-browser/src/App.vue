@@ -21,7 +21,7 @@
           <div class="column"></div>
           <div class="column is-half searchbox">
             <div class="control has-icons-left">
-              <input type="text" class="input is-medium" placeholder="Search your documentation">
+              <input type="text" class="input is-medium" v-model="searchTerm" placeholder="Search your documentation">
               <span class="icon is-small is-left">
                 <i class="fa fa-search"></i>
               </span>
@@ -83,7 +83,7 @@
 
   <!-- main content -->
   <div class="column">
-    <router-view></router-view>
+    <router-view v-bind:searchTerm="searchTerm"></router-view>  
   </div>
 </div>
 <!--
@@ -168,7 +168,8 @@ export default {
   name: 'app',
   data () {
     return {
-      title: 'APPS'
+      title: 'APPS',
+      searchTerm: ''
     }
   },
   methods: {

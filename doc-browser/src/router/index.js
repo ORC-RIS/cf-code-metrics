@@ -24,6 +24,7 @@ export default new Router({
       props: true,
       children: [
         { 
+          name: 'Datasources',
           path: 'datasources',
           component: ApplicationDatasources,
           props: true

@@ -1,9 +1,8 @@
 <template>
   <div>
     <h1 class="hero title is-1">{{id}} datasources</h1>
-
     <div>
-      <ul v-for="ds in datasources" :key="ds">
+      <ul v-for="ds in filteredDatasources" :key="ds">
         <li>{{ds}}</li>
       </ul>
     </div>
@@ -15,7 +14,7 @@ import api from './../api'
 
 export default {
   name: 'ApplicationDatasources',
-  props: ['id'],
+  props: ['id', 'searchTerm'],
   
   data: function () {
     return {
@@ -27,6 +26,14 @@ export default {
     api.getProject(this.id).then(project => {
       that.datasources = project.datasources.sort()
     })
+  },
+  computed: {
+    filteredDatasources() {
+      return this.datasources.filter(d => {
+        console.log(this.searchTerm + ' | ' + d)
+         return d.toLowerCase().indexOf(this.searchTerm.toLowerCase()) > -1
+      })
+    }
   }
 }
 </script>
