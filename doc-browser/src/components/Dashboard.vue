@@ -27,11 +27,26 @@
 
           <div class="content">
             <ul>
-              <li>? datasources</li>
-              <li>{{item.components}} components</li>
-              <li>{{item.sps}} stores procedures</li>
-              <li>{{item.queries}} queries</li>
-              <li>{{item.includes}} includes</li>
+              <li class="is-fluid">
+                <div class="is-size-4 metric-value">{{item.datasources}}</div>
+                <div class="is-size-6">datasources</div>
+              </li>
+              <li>
+                <span class="is-size-4 metric-value">{{item.components}}</span>
+                <span class="is-size-6">components</span>
+              </li>
+              <li>
+                <span class="is-size-4 metric-value">{{item.sps}}</span>
+                <span class="is-size-6">stores procedures</span>
+              </li>
+              <li>
+                <span class="is-size-4 metric-value">{{item.queries}}</span>
+                <span class="is-size-6">queries</span>
+              </li>
+              <li>
+                <span class="is-size-4 metric-value">{{item.includes}}</span>
+                <span class="is-size-6">includes</span>
+              </li>
             </ul>
           </div>
         </div>
@@ -69,7 +84,8 @@ export default {
   name: 'dashboard',
   data: function() {
     return {
-      projects: []
+      projects: [],
+      searchTerm: ''
     }
   },
   mounted: function() {
@@ -82,10 +98,24 @@ export default {
       console.log(projectId)
       this.$router.push({ name: 'Application', params: { id: projectId }})
     }
+  },
+  computed: {
+    filteredProjects() {
+      return this.projects.filter(p => {
+         return p.project.indexOf(this.searchTerm.toLowerCase()) > -1
+      })
+    }
   }
 }
 </script>
 
 <style>
+li {
+  list-style-type: none;
+}
+
+.metric-value {
+  width: 40px;
+}
 
 </style>
