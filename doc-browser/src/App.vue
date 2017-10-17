@@ -83,7 +83,7 @@
 
   <!-- main content -->
   <div class="column">
-    <router-view v-bind:searchTerm="searchTerm"></router-view>  
+    <router-view v-bind:searchTerm="searchTerm" v-on:clearsearch="onClearSearch()"></router-view>  
   </div>
 </div>
 <!--
@@ -173,7 +173,9 @@ export default {
     }
   },
   methods: {
-    
+    onClearSearch(){
+      this.searchTerm = ''
+    }
   }
 }
 </script>

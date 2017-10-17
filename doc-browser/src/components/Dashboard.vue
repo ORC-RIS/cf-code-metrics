@@ -59,6 +59,9 @@ export default {
   methods: {
     viewProject: function(projectId) {
       this.$router.push({ name: 'Application', params: { id: projectId, searchTerm: this.searchTerm }})
+      
+      // emmit event to parent to clear the search input box
+      this.$emit('clearsearch')
     }
   },
   computed: {
