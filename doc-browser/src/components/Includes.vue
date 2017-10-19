@@ -41,7 +41,8 @@ export default {
   computed: {
     filteredIncludes() {
       return this.includes.filter(i => {
-         return i.template.toLowerCase().indexOf(this.searchTerm.toLowerCase()) > -1
+         return (this.searchTerm === ''
+          || i.template.toLowerCase().indexOf(this.searchTerm.toLowerCase()) > -1)
       })
     }
   }

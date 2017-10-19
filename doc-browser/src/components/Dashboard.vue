@@ -66,8 +66,9 @@ export default {
   },
   computed: {
     filteredProjects() {
-      return this.projects.filter(p => {
-         return p.project.toLowerCase().indexOf(this.searchTerm.toLowerCase()) > -1
+      return this.projects.filter(p => {        
+         return (this.searchTerm === ''
+          || p.project.toLowerCase().indexOf(this.searchTerm.toLowerCase()) > -1)
       })
     }
   }

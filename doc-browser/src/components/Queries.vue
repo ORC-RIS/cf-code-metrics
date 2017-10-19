@@ -5,10 +5,12 @@
     <div>
       
       <div class="container" v-for="q in filteredQueries" :key="q.row + q.col">
-        <h5 class="title is-6">{{q.name}}</h5>
-        <small>{{q.file}}</small>
-
+        <p class="has-text-weight-bold">{{q.name}}</p>
+        <p>File: {{q.file}}</p>
+        <p>Datasource: {{q.datasource}}</p>
         <pre>{{q.text}}</pre>
+        </br>
+        </br>        
       </div>
 
 
@@ -49,11 +51,10 @@ export default {
     filteredQueries() {
       return this.queries.filter(q => {
         let term = this.searchTerm.toLowerCase()
-        return (
-               (q.hasOwnProperty('name') && q.name.toLowerCase().indexOf(term) > -1)
-            //|| (q.hasOwnProperty('file') && q.file.toLowerCase().indexOf(term) > -1)  
-            || (q.hasOwnProperty('text') && q.text.toLowerCase().indexOf(term) > -1)  
-          )
+        return (term === ''
+              || (q.hasOwnProperty('name') && q.name.toLowerCase().indexOf(term) > -1)
+              || (q.hasOwnProperty('text') && q.text.toLowerCase().indexOf(term) > -1))  
+              //|| (q.hasOwnProperty('file') && q.file.toLowerCase().indexOf(term) > -1)
       })
     }
   }

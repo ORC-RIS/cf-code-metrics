@@ -29,9 +29,9 @@ export default {
   },
   computed: {
     filteredDatasources() {
-      return this.datasources.filter(d => {
-        console.log(this.searchTerm + ' | ' + d)
-         return d.toLowerCase().indexOf(this.searchTerm.toLowerCase()) > -1
+      return this.datasources.filter(d => {        
+         return (this.searchTerm === '' 
+          || d.toLowerCase().indexOf(this.searchTerm.toLowerCase()) > -1)
       })
     }
   }

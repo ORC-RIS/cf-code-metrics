@@ -37,10 +37,9 @@ export default {
     filteredSps() {
       return this.sps.filter(p => {
         let term = this.searchTerm.toLowerCase()
-        return (
-               (p.hasOwnProperty('procedure') && p.procedure.toLowerCase().indexOf(term) > -1)
-            || (p.hasOwnProperty('datasource') && p.datasource.toLowerCase().indexOf(term) > -1)  
-          )
+        return (term === ''
+            || (p.hasOwnProperty('procedure') && p.procedure.toLowerCase().indexOf(term) > -1)
+            || (p.hasOwnProperty('datasource') && p.datasource.toLowerCase().indexOf(term) > -1))
       })
     }
   }
