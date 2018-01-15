@@ -10,7 +10,7 @@
         v-for="item in projects" :key="item.project">
         <v-card>
           <v-card-title primary class="title">{{item.project}}</v-card-title>
-          <v-card-textarea>
+          <v-card-text>
             <v-container>
               <table>
                 <tbody> 
@@ -37,12 +37,13 @@
                 </tbody>
               </table>
             </v-container>
-          </v-card-textarea>
+          </v-card-text>
           <v-card-actions>
-            <v-btn>Explore</v-btn>
+            <v-btn @click="viewProject(item.project)">Explore</v-btn>
             <v-btn v-if="item.repository" v-bind:href="item.repository">
              <v-icon>fa-github</v-icon>
             </v-btn>
+            <v-btn v-if="item.jira" v-bind:href="item.jira">JIRA</v-btn>
           </v-card-actions>
         </v-card>
       </v-flex>
@@ -73,9 +74,11 @@ export default {
         this.projects = data
         this.loading = false
       })
+    },
+    viewProject: function (projectId) {
+      this.$router.push({ name: 'components', params: { id: projectId, searchTerm: this.searchTerm } })
     }
   }
-
 }
 </script>
 
