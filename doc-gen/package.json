@@ -6,7 +6,8 @@
   "scripts": {
     "test": "./node_modules/.bin/mocha -u bdd",
     "gen": "node index.js gen-bulk ./../tmp/ ./test-data/target && cp -R ./test-data/target/ ./doc-browser/data/",
-    "gen-windows": "node index.js gen-bulk ./../tmp/ ./test-data/target",
+    "gen-windows": "node --max-old-space-size=4096 index.js gen-bulk \\\\ucfrescfdev2\\Personnel\\cgs-cfgrad02\\GraduateStudies ./test-data/target",
+    "gen-windows-paris": "node --max-old-space-size=4096 index.js gen-bulk ./../paris  ./test-data/target",
     "copy-data-windows": "robocopy .\\test-data\\target .\\doc-browser\\data"
   },
   "keywords": [
