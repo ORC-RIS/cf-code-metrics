@@ -1,11 +1,14 @@
 "use strict"
 
 var inspect = require('eyes').inspector({maxLength: false})
-var assert = require('chai').assert
-var should = require('chai').should()
+var chai = require('chai')
+var assert = chai.assert
+var should = chai.should()
+chai.use(require('chai-shallow-deep-equal'))
+chai.use(require('chai-subset'))
 
-var CfmlHandler = require("./../lib/cfml-parser/cfml-handler.js")
-var CfmlParser = require("./../lib/cfml-parser/cfml-parser.js")
+var CfmlHandler = require("./../src/cfml-parser/cfml-handler.js")
+var CfmlParser = require("./../src/cfml-parser/cfml-parser.js")
 var Parser = require("htmlparser2").Parser
 
 describe('CfmlParser', () => {
@@ -17,16 +20,24 @@ describe('CfmlParser', () => {
       parser.writeLine('')
       parser.done()
 
-      handler.dom.should.be.deep.equal([])
+      handler.dom.should.be.empty
     })
+
+    // it('should ignore white spaces', () => {
+    //   var handler = new CfmlHandler()
+    //   var parser = new CfmlParser(handler)
+    //   parser.writeLine(' ')
+    //   parser.done()
+    //   handler.dom.should.be.empty
+    // })
 
     it('should parse a one tag document ', () => {
       var handler = new CfmlHandler()
       var parser = new CfmlParser(handler)
       parser.writeLine('<cfset var foo="bar" />')
       parser.done()
-
-      handler.dom.should.be.deep.equal([
+      
+      handler.dom.should.be.shallowDeepEqual([
         {
           type: 'tag',
           name:'cfset',
@@ -39,31 +50,44 @@ describe('CfmlParser', () => {
     it('should ignore html tags', () => {
       var handler = new CfmlHandler()
       var parser = new CfmlParser(handler)
-      parser.writeLine('<ul><li>item1</li><li>item 2</li></ul>')
+      parser.writeLine('<ul><li></li></ul>')
       parser.done()
+      
+      handler.dom.should.be.empty
+    })
 
-      handler.dom.should.be.deep.equal([])
+    it('should parse text', () => {
+      var handler = new CfmlHandler()
+      var parser = new CfmlParser(handler)
+      parser.writeLine('foo')
+      parser.done()
+      
+      handler.dom.should.be.shallowDeepEqual([
+        {
+          type: 'text',
+          data:'foo'
+        }])
     })
 
     it('should parse two tags on the same line', () => {
       var handler = new CfmlHandler()
       var parser = new CfmlParser(handler)
-      parser.writeLine('<cfset var foo="bar" />  <cfset var foo="bar" />')
+      parser.writeLine('<cfset var foo="bar1" /><cfset var foo="bar2" />')
       parser.done()
 
-      handler.dom.should.be.deep.equal([
+      handler.dom.should.be.shallowDeepEqual([
         {
           type: 'tag',
           name:'cfset',
+          attribs: { var: '', foo: 'bar1' },
           line: 1,
-          col: 0,
           children: []
         },
         {
           type: 'tag',
           name:'cfset',
+          attribs: { var: '', foo: 'bar2' },
           line: 1,
-          col: 25,
           children: []
         }])
     })
@@ -71,34 +95,36 @@ describe('CfmlParser', () => {
     it('should parse two tags on different lines', () => {
       var handler = new CfmlHandler()
       var parser = new CfmlParser(handler)
-      parser.writeLine('<cfset var foo="bar" />')
-      parser.writeLine('<cfset var foo="bar" />')
+      parser.writeLine('<cfset var foo="bar1" />')
+      parser.writeLine('<cfset var foo="bar2" />')
       parser.done()
 
-      handler.dom.should.be.deep.equal([
+      handler.dom.should.be.deep.shallowDeepEqual([
         {
           type: 'tag',
           name:'cfset',
           line: 1,
           col: 0,
-          children: []
+          children: [],
+          attribs: { var: '', foo: 'bar1' }
         },
         {
           type: 'tag',
           name:'cfset',
           line: 2,
           col: 0,
-          children: []
+          children: [],
+          attribs: { var: '', foo: 'bar2' }
         }])
     })
 
     it('should parse one call to writeLine with an EOL as two lines', () => {
       var handler = new CfmlHandler()
       var parser = new CfmlParser(handler)
-      parser.writeLine('<cfset var foo="bar" />\n<cfset var foo="bar" />')
+      parser.writeLine('<cfset var foo="bar1" />\n<cfset var foo="bar2" />')
       parser.done()
 
-      handler.dom.should.be.deep.equal([
+      handler.dom.should.be.deep.shallowDeepEqual([
         {
           type: 'tag',
           name:'cfset',
@@ -128,22 +154,23 @@ describe('CfmlParser', () => {
       parser.writeLine(cfml)
       parser.done()
 
-      handler.dom.should.be.deep.equal([
-        {
-          type: 'tag',
-          name:'cfcomponent',
-          line: 1,
-          col: 0,
-          children: [
-            {
-              type: 'tag',
-              name:'cffunction',
-              line: 2,
-              col: 11,
-              children: []
-            }
-          ]
-        }])
+      handler.dom[0].should.containSubset(        
+          {
+            type: 'tag',
+            name:'cfcomponent',
+            line: 1,
+            col: 0,
+            children: [
+              {
+                type: 'tag',
+                name:'cffunction',
+                attribs: { name: 'bar' },
+                line: 2,
+                col: 11
+              }
+            ]
+          }
+      )
     })
 
     it('should parse a string attribute', () => {

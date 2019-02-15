@@ -1,6 +1,6 @@
 "use strict"
-var CfmlHandler = require("../lib/cfml-parser/cfml-handler.js")
-var CfmlParser = require("../lib/cfml-parser/cfml-parser.js")
+var CfmlHandler = require("./cfml-parser/cfml-handler.js")
+var CfmlParser = require("./cfml-parser/cfml-parser.js")
 const inspect = require('eyes').inspector({maxLength: false})
 
 
