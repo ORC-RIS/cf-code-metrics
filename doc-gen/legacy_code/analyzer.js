@@ -9,7 +9,7 @@ var recursive = require('recursive-readdir')
 var util = require('./util.js')
 var xml2js = require('xml2js')
 var inspect = require('eyes').inspector({maxLength: false})
-var cheerio = require('cheerio')
+// var cheerio = require('cheerio')
 var htmlparser = require("htmlparser2")
 
 var analysisResult = {
@@ -119,7 +119,7 @@ var analyze = function(dirName) {
     // validate path
     fs.exists(dirName, (exists) => {
       if (!exists)
-        reject('directory [foo] do not exists!')
+        reject('directory [' + dirName + '] do not exists!')
       else {
 
         // initialize analysis result

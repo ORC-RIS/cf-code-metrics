@@ -150,6 +150,7 @@ CfmlHandler.prototype.ontext = function(data){
 	var normalize = this._options.normalizeWhitespace || this._options.ignoreWhitespace;
 
 	var lastTag;
+	var emptyText = false;
 
 	if(!this._tagStack.length && this.dom.length && (lastTag = this.dom[this.dom.length-1]).type === ElementType.Text){
 		if(normalize){
@@ -173,11 +174,15 @@ CfmlHandler.prototype.ontext = function(data){
 			if(normalize){
 				data = '\n' + data.replace(re_whitespace, " ");
 			}
-
-			this._addDomElement({
-				data: data,
-				type: ElementType.Text
-			});
+			
+			emptyText = (data.replace(re_whitespace, "") == "\n")
+			
+			if (!emptyText) {
+				this._addDomElement({
+					data: data,
+					type: ElementType.Text
+				});
+			}
 		}
 	}
   
